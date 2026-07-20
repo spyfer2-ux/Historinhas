@@ -89,6 +89,15 @@ select.ctl{appearance:none;text-align:center}
 input[type=range]{width:100%;accent-color:var(--gold)}
 .rlabel{font-size:.68rem;color:var(--ink2);font-weight:800;white-space:nowrap}
 
+/* ---------- extras v3 ---------- */
+.profchip{width:auto;padding:0 14px;font-size:.85rem;font-weight:800;white-space:nowrap}
+.continuebar{display:flex;width:100%;align-items:center;gap:10px;background:linear-gradient(120deg,#0d9488,#059669);color:#fff;border-radius:var(--rd);padding:14px 16px;margin:10px 0 4px;box-shadow:0 10px 30px #0006;font-size:.92rem;font-weight:800;text-align:left}
+.continuebar small{display:block;font-weight:700;color:#bbf7d0;font-size:.72rem}
+.heartbtn{position:absolute;top:10px;left:10px;font-size:1.05rem;background:#00000055;backdrop-filter:blur(4px);border-radius:999px;padding:5px 8px;z-index:2;line-height:1}
+.readstar{position:absolute;top:44px;left:10px;font-size:1rem;filter:drop-shadow(0 2px 4px #0009);z-index:2}
+.pfchip{display:inline-flex;align-items:center;gap:8px;background:#ffffff14;border-radius:999px;padding:9px 16px;margin:4px 6px 4px 0;font-size:.9rem;font-weight:800;color:var(--ink)}
+.pfchip.on{background:var(--gold);color:#3c2a00}
+.pfchip .del{opacity:.6;font-size:.8rem;padding:2px 4px}
 /* ---------- modals ---------- */
 .overlay{position:fixed;inset:0;background:#0c0626d9;backdrop-filter:blur(6px);z-index:50;display:grid;place-items:center;padding:18px}
 .modal{background:linear-gradient(170deg,#3b2a7e,#241553);border:1px solid #ffffff2a;border-radius:26px;padding:22px 20px;max-width:420px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px #000}
@@ -124,7 +133,10 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
 <section id="home" class="screen">
   <header class="top">
     <div class="logo"><span class="moon">🌙</span><div><h1>Historinhas</h1><small>histórias para ler juntinhos</small></div></div>
-    <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes">⚙️</button>
+    <div style="display:flex;gap:8px">
+      <button class="iconbtn profchip" id="profChip" onclick="openProfiles()" aria-label="Perfis">👧</button>
+      <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes">⚙️</button>
+    </div>
   </header>
 
   <div class="ad" data-ad><b>📢 Espaço de anúncio (banner topo)</b><br><span class="adnote">Aqui entra o bloco AdMob/AdSense — banner 320×50 ou adaptativo</span></div>
@@ -133,6 +145,8 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
     <div class="t"><b>✨ Remova os anúncios</b><span>Leitura sem interrupções, para sempre</span></div>
     <button class="pricebtn" onclick="openPremium('ads')">R$ 19,90</button>
   </div>
+
+  <button class="continuebar hidden" id="continueBar" onclick="continueStory()"></button>
 
   <div id="cats"></div>
 
@@ -146,6 +160,7 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
   <header class="top">
     <button class="iconbtn" onclick="closeReader()" aria-label="Voltar">←</button>
     <h2 class="stitle" id="readerTitle"></h2>
+    <button class="iconbtn" id="favBtn" onclick="toggleFav()" aria-label="Favoritar">🤍</button>
     <button class="iconbtn" onclick="openPersonalize(currentStory.id,true)" aria-label="Nomes">🪄</button>
   </header>
   <div id="storybox"></div>
@@ -178,6 +193,7 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
   <div class="modal">
     <h3>🪄 Nomes mágicos</h3>
     <p class="sub">A história fica muito mais divertida quando a criança vira o personagem!</p>
+    <div id="pfQuick" class="hidden" style="margin-bottom:6px"></div>
     <div class="field">
       <label>👧 Nome da criança</label>
       <input type="text" id="inChild" placeholder="Ex.: Sofia" maxlength="20">
@@ -238,6 +254,21 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
   </div>
 </div>
 
+<!-- ============ MODAL perfis ============ -->
+<div class="overlay hidden" id="ovProfiles">
+  <div class="modal">
+    <h3>👨‍👩‍👧‍👦 Quem vai ouvir hoje?</h3>
+    <p class="sub">Cada criança tem seu nome, suas favoritas e suas estrelinhas.</p>
+    <div id="profList" style="margin-bottom:10px"></div>
+    <div class="field">
+      <label>➕ Adicionar criança</label>
+      <input type="text" id="newProf" placeholder="Nome da criança" maxlength="20">
+    </div>
+    <button class="mbtn ghost" onclick="addProfile()">Adicionar</button>
+    <button class="mbtn gold" onclick="hide('ovProfiles')">Pronto</button>
+  </div>
+</div>
+
 <!-- ============ MODAL ajustes ============ -->
 <div class="overlay hidden" id="ovSettings">
   <div class="modal">
@@ -263,13 +294,21 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
 const S = {
   child:'', parent:'', adsRemoved:false, passBought:false,
   opens:0, sfxOn:true, voiceURI:'', rate:1, scrollSpeed:3, font:1.25,
-  rewardIds:{}
+  rewardIds:{},
+  profiles:[{name:'',favs:{},read:{}}], prof:0, last:null
 };
 function save(){ try{ localStorage.setItem('historinhas', JSON.stringify({
-  child:S.child,parent:S.parent,adsRemoved:S.adsRemoved,passBought:S.passBought,voiceURI:S.voiceURI
+  parent:S.parent,adsRemoved:S.adsRemoved,passBought:S.passBought,voiceURI:S.voiceURI,
+  profiles:S.profiles,prof:S.prof,last:S.last
 }))}catch(e){} }
-function load(){ try{ const d=JSON.parse(localStorage.getItem('historinhas')||'{}'); Object.assign(S,d);}catch(e){} }
+function load(){ try{ const d=JSON.parse(localStorage.getItem('historinhas')||'{}'); Object.assign(S,d);
+  if(!S.profiles||!S.profiles.length) S.profiles=[{name:'',favs:{},read:{}}];
+  S.profiles.forEach(p=>{ p.favs=p.favs||{}; p.read=p.read||{}; });
+  if(d.child && !S.profiles[0].name) S.profiles[0].name=d.child; /* migração da versão antiga */
+  if(S.prof>=S.profiles.length) S.prof=0;
+}catch(e){} }
 load();
+function P(){ return S.profiles[S.prof]||S.profiles[0]; }
 
 /* ---------- HISTÓRIAS ----------
    {H} = nome da criança (herói/heroína)   {P} = nome do pai/mãe (personagem adulto)
@@ -883,29 +922,49 @@ const CATS=[
  {id:'herois',    name:'🦸 Heróis', desc:'Capas, escudos e corações valentes'}
 ];
 function unlocked(st){ return st.free || S.passBought || S.rewardIds[st.id]; }
+function makeCard(st,gi){
+  const b=document.createElement('button'); b.className='card';
+  if(st.img){ b.classList.add('has-img');
+    b.style.background=`linear-gradient(180deg, rgba(15,10,40,.02) 30%, rgba(15,10,40,.9)), url('${st.img}') center 22%/cover no-repeat`;
+  } else b.style.background=GRADS[gi%GRADS.length];
+  const badge= st.free?'<span class="badge free">GRÁTIS</span>' : (unlocked(st)?'<span class="badge free">✓ SEU</span>':'<span class="badge lock">🔒 PREMIUM</span>');
+  const orig= st.orig?'<span class="badge orig" style="top:38px">ORIGINAL</span>':'';
+  const emo= st.img?'':`<span class="emoji">${st.emoji}</span>`;
+  const fav= P().favs[st.id];
+  const star= P().read[st.id]?'<span class="readstar">⭐</span>':'';
+  b.innerHTML=`<span class="heartbtn" onclick="event.stopPropagation();cardFav('${st.id}')">${fav?'❤️':'🤍'}</span>${star}${badge}${orig}${emo}<h3>${st.title}</h3><span class="meta">⏱️ ${st.mins} min · ${st.desc}</span>`;
+  b.onclick=()=>tapStory(st.id);
+  return b;
+}
 function renderHome(){
   const wrap=document.getElementById('cats'); wrap.innerHTML='';
   let gi=0;
+  /* chip do perfil ativo */
+  document.getElementById('profChip').textContent='👧 '+(P().name||'quem ouve?');
+  /* barra continuar de onde parou */
+  const cb=document.getElementById('continueBar');
+  const lastSt=S.last && STORIES.find(s=>s.id===S.last.id);
+  if(lastSt){ cb.classList.remove('hidden');
+    cb.innerHTML=`<span style="font-size:1.4rem">▶️</span><span style="flex:1">Continuar: ${lastSt.title}<small>de onde vocês pararam</small></span><span>›</span>`;
+  } else cb.classList.add('hidden');
+  /* seção de favoritas */
+  const favs=STORIES.filter(s=>P().favs[s.id]);
+  if(favs.length){
+    const h=document.createElement('h2'); h.className='sectiontitle';
+    h.innerHTML=`❤️ Favoritas de ${P().name||'casa'} <small>· ${favs.length}</small>`; wrap.appendChild(h);
+    const g=document.createElement('div'); g.className='grid';
+    favs.forEach(st=>{ g.appendChild(makeCard(st,gi)); gi++; });
+    wrap.appendChild(g);
+  }
   CATS.forEach((c,ci)=>{
     const sts=STORIES.filter(s=>(s.cat||'classicos')===c.id);
     if(!sts.length) return;
+    const lidas=sts.filter(s=>P().read[s.id]).length;
     const h=document.createElement('h2'); h.className='sectiontitle';
-    h.innerHTML=`${c.name} <small>· ${sts.length} histórias</small>`; wrap.appendChild(h);
+    h.innerHTML=`${c.name} <small>· ${lidas>0?`⭐ ${lidas}/${sts.length} lidas`:sts.length+' histórias'}</small>`; wrap.appendChild(h);
     const d=document.createElement('div'); d.className='catdesc'; d.textContent=c.desc; wrap.appendChild(d);
     const g=document.createElement('div'); g.className='grid';
-    [...sts].sort((a,b)=>(b.free?1:0)-(a.free?1:0)).forEach(st=>{
-      const b=document.createElement('button'); b.className='card';
-      if(st.img){ b.classList.add('has-img');
-        b.style.background=`linear-gradient(180deg, rgba(15,10,40,.02) 30%, rgba(15,10,40,.9)), url('${st.img}') center 22%/cover no-repeat`;
-      } else b.style.background=GRADS[gi%GRADS.length];
-      gi++;
-      const badge= st.free?'<span class="badge free">GRÁTIS</span>' : (unlocked(st)?'<span class="badge free">✓ SEU</span>':'<span class="badge lock">🔒 PREMIUM</span>');
-      const orig= st.orig?'<span class="badge orig" style="top:38px">ORIGINAL</span>':'';
-      const emo= st.img?'':`<span class="emoji">${st.emoji}</span>`;
-      b.innerHTML=`${badge}${orig}${emo}<h3>${st.title}</h3><span class="meta">⏱️ ${st.mins} min · ${st.desc}</span>`;
-      b.onclick=()=>tapStory(st.id);
-      g.appendChild(b);
-    });
+    [...sts].sort((a,b)=>(b.free?1:0)-(a.free?1:0)).forEach(st=>{ g.appendChild(makeCard(st,gi)); gi++; });
     wrap.appendChild(g);
     if(ci===1||ci===3){
       const ad=document.createElement('div'); ad.className='ad'; ad.setAttribute('data-ad','');
@@ -916,6 +975,50 @@ function renderHome(){
   document.querySelectorAll('[data-ad]').forEach(a=>a.classList.toggle('hidden',S.adsRemoved));
   document.getElementById('noadsBanner').classList.toggle('hidden',S.adsRemoved);
 }
+
+/* ---------- favoritos, estrelinhas e perfis ---------- */
+function cardFav(id){ const f=P().favs; if(f[id])delete f[id]; else f[id]=true; save(); renderHome(); }
+function toggleFav(){ if(!currentStory)return; const f=P().favs;
+  if(f[currentStory.id])delete f[currentStory.id]; else f[currentStory.id]=true;
+  save(); updateFavBtn();
+  toast(f[currentStory.id]?'❤️ Adicionada às favoritas!':'Removida das favoritas'); }
+function updateFavBtn(){ const b=document.getElementById('favBtn');
+  if(b&&currentStory) b.textContent=P().favs[currentStory.id]?'❤️':'🤍'; }
+function markRead(id){ const r=P().read;
+  if(!r[id]){ r[id]=true; save(); sfx('fanfare'); toast('⭐ História concluída! Mais uma estrelinha para '+(P().name||'a coleção')); } }
+function openProfiles(){ renderProfList(); show('ovProfiles'); }
+function renderProfList(){
+  const el=document.getElementById('profList');
+  el.innerHTML=S.profiles.map((p,i)=>{
+    const stars=Object.keys(p.read||{}).length;
+    const del=S.profiles.length>1?`<span class="del" onclick="event.stopPropagation();delProfile(${i})">✕</span>`:'';
+    return `<span class="pfchip ${i===S.prof?'on':''}" onclick="pickProfile(${i})">👧 ${p.name||'sem nome'} · ⭐${stars}${del}</span>`;
+  }).join('');
+}
+function pickProfile(i){ S.prof=i; save(); renderProfList(); renderHome(); }
+function addProfile(){ const n=document.getElementById('newProf').value.trim();
+  if(!n){ toast('Escreva o nome da criança 😊'); return; }
+  S.profiles.push({name:n,favs:{},read:{}}); S.prof=S.profiles.length-1;
+  document.getElementById('newProf').value=''; save(); renderProfList(); renderHome();
+  toast('👧 '+n+' entrou para a família!'); }
+function delProfile(i){ S.profiles.splice(i,1); if(S.prof>=S.profiles.length)S.prof=0;
+  save(); renderProfList(); renderHome(); }
+function continueStory(){ const st=S.last&&STORIES.find(s=>s.id===S.last.id); if(!st)return;
+  const para=S.last.para||0;
+  renderReader(st,S.last.useC,S.last.useP);
+  setTimeout(()=>{ const els=paraEls(); if(els[para]) els[para].scrollIntoView({block:'center'}); },80);
+}
+/* progresso de leitura + estrelinha ao chegar no fim */
+let lastTrackT=0;
+window.addEventListener('scroll',()=>{
+  if(!currentStory||document.getElementById('reader').classList.contains('hidden'))return;
+  const now=Date.now(); if(now-lastTrackT<700)return; lastTrackT=now;
+  const els=paraEls(); let idx=0;
+  els.forEach((e,i)=>{ if(e.getBoundingClientRect().top<window.innerHeight*.5) idx=i; });
+  if(S.last&&S.last.id===currentStory.id){ S.last.para=idx; save(); }
+  const fim=document.querySelector('#storybox .fim');
+  if(fim&&fim.getBoundingClientRect().top<window.innerHeight) markRead(currentStory.id);
+},{passive:true});
 
 /* ---------- abrir história ---------- */
 let currentStory=null, pendingId=null;
@@ -928,19 +1031,24 @@ function tapStory(id){
 }
 function openPersonalize(id,fromReader){
   pendingId=id; const st=STORIES.find(s=>s.id===id);
-  document.getElementById('inChild').value=S.child;
+  document.getElementById('inChild').value=P().name;
   document.getElementById('inParent').value=S.parent;
+  /* chips rápidos quando há mais de uma criança */
+  const q=document.getElementById('pfQuick');
+  if(S.profiles.length>1){ q.classList.remove('hidden');
+    q.innerHTML=S.profiles.map((p,i)=>`<span class="pfchip ${i===S.prof?'on':''}" onclick="S.prof=${i};save();openPersonalize('${id}',false)">👧 ${p.name||'?'}</span>`).join('');
+  } else q.classList.add('hidden');
   document.getElementById('hintChild').textContent=`Vai virar ${st.hero.role} (no lugar de "${st.hero.def}")`;
   document.getElementById('hintParent').textContent=`Vai virar ${st.parent.role} (no lugar de "${st.parent.def}")`;
   show('ovPersonalize');
 }
 function startStory(){
   const st=STORIES.find(s=>s.id===pendingId);
-  S.child=document.getElementById('inChild').value.trim();
+  P().name=document.getElementById('inChild').value.trim();
   S.parent=document.getElementById('inParent').value.trim();
   save(); hide('ovPersonalize');
-  const useC=document.getElementById('ckChild').checked && S.child;
-  const useP=document.getElementById('ckParent').checked && S.parent;
+  const useC=document.getElementById('ckChild').checked && !!P().name;
+  const useP=document.getElementById('ckParent').checked && !!S.parent;
   S.opens++;
   const go=()=>renderReader(st,useC,useP);
   if(!S.adsRemoved && S.opens>1 && S.opens%2===0){ showInter(go); } else go();
@@ -948,12 +1056,13 @@ function startStory(){
 
 /* ---------- leitor ---------- */
 function names(st,txt,useC,useP){
-  return txt.replaceAll('{H}', useC?S.child:st.hero.def)
+  return txt.replaceAll('{H}', useC?P().name:st.hero.def)
             .replaceAll('{P}', useP?S.parent:st.parent.def);
 }
 function renderReader(st,useC,useP){
   stopRead(); stopScroll();
   currentStory=st; currentStory._useC=useC; currentStory._useP=useP;
+  S.last={id:st.id,useC:!!useC,useP:!!useP,para:0}; save();
   document.getElementById('readerTitle').textContent=st.title;
   const box=document.getElementById('storybox');
   let html= st.img
@@ -971,6 +1080,7 @@ function renderReader(st,useC,useP){
   document.getElementById('home').classList.add('hidden');
   document.getElementById('reader').classList.remove('hidden');
   document.getElementById('controls').classList.remove('hidden');
+  updateFavBtn();
   window.scrollTo(0,0);
 }
 function closeReader(){
@@ -1022,7 +1132,9 @@ function toggleRead(){
 function speakNext(){
   const els=paraEls();
   els.forEach(e=>e.classList.remove('active'));
-  if(!reading||rIdx>=els.length){ stopRead(); return; }
+  if(!reading||rIdx>=els.length){
+    if(reading&&rIdx>=els.length&&currentStory) markRead(currentStory.id);
+    stopRead(); return; }
   const el=els[rIdx]; el.classList.add('active');
   el.scrollIntoView({behavior:'smooth',block:'center'});
   if(el.dataset.sfx) sfx(el.dataset.sfx);
@@ -1156,7 +1268,8 @@ function openSettings(){
     (S.passBought?'👑 Passe Mágico ativo':'🔒 Coleção Premium bloqueada');
   show('ovSettings');
 }
-function resetAll(){ S.child='';S.parent='';S.adsRemoved=false;S.passBought=false;S.rewardIds={};
+function resetAll(){ S.parent='';S.adsRemoved=false;S.passBought=false;S.rewardIds={};
+  S.profiles=[{name:'',favs:{},read:{}}];S.prof=0;S.last=null;
   save(); hide('ovSettings'); renderHome(); toast('Dados apagados.'); }
 
 /* ---------- util ---------- */
