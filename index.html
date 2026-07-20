@@ -89,6 +89,11 @@ select.ctl{appearance:none;text-align:center}
 input[type=range]{width:100%;accent-color:var(--gold)}
 .rlabel{font-size:.68rem;color:var(--ink2);font-weight:800;white-space:nowrap}
 
+/* ---------- barra de tópicos ---------- */
+.topics{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;position:sticky;top:0;z-index:8;background:linear-gradient(#1b1140f5,#1b1140e8);backdrop-filter:blur(8px);margin:0 -14px;padding-left:14px;padding-right:14px;scrollbar-width:none}
+.topics::-webkit-scrollbar{display:none}
+.topicchip{flex:0 0 auto;background:#ffffff14;border:1px solid #ffffff22;border-radius:999px;padding:10px 15px;font-size:.8rem;font-weight:800;color:var(--ink);white-space:nowrap}
+.topicchip:active{transform:scale(.94);background:var(--accent)}
 /* ---------- caixinha de sons ---------- */
 .sndrow{justify-content:flex-start;gap:8px;overflow-x:auto;scrollbar-width:none}
 .sndrow::-webkit-scrollbar{display:none}
@@ -144,6 +149,8 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
       <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes">⚙️</button>
     </div>
   </header>
+
+  <nav class="topics" id="topicsNav"></nav>
 
   <div class="ad" data-ad><b>📢 Espaço de anúncio (banner topo)</b><br><span class="adnote">Aqui entra o bloco AdMob/AdSense — banner 320×50 ou adaptativo</span></div>
 
@@ -968,7 +975,7 @@ function renderHome(){
     const sts=STORIES.filter(s=>(s.cat||'classicos')===c.id);
     if(!sts.length) return;
     const lidas=sts.filter(s=>P().read[s.id]).length;
-    const h=document.createElement('h2'); h.className='sectiontitle';
+    const h=document.createElement('h2'); h.className='sectiontitle'; h.id='cat-'+c.id;
     h.innerHTML=`${c.name} <small>· ${lidas>0?`⭐ ${lidas}/${sts.length} lidas`:sts.length+' histórias'}</small>`; wrap.appendChild(h);
     const d=document.createElement('div'); d.className='catdesc'; d.textContent=c.desc; wrap.appendChild(d);
     const g=document.createElement('div'); g.className='grid';
@@ -982,7 +989,12 @@ function renderHome(){
   });
   document.querySelectorAll('[data-ad]').forEach(a=>a.classList.toggle('hidden',S.adsRemoved));
   document.getElementById('noadsBanner').classList.toggle('hidden',S.adsRemoved);
+  /* barra de tópicos no topo */
+  document.getElementById('topicsNav').innerHTML=
+    CATS.map(c=>`<button class="topicchip" onclick="goCat('${c.id}')">${c.name}</button>`).join('');
 }
+function goCat(id){ const el=document.getElementById('cat-'+id);
+  if(el){ el.scrollIntoView({behavior:'smooth'}); setTimeout(()=>window.scrollBy(0,-58),400); } }
 
 /* ---------- favoritos, estrelinhas e perfis ---------- */
 function cardFav(id){ const f=P().favs; if(f[id])delete f[id]; else f[id]=true; save(); renderHome(); }
