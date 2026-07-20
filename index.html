@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2a1a5e">
+<title>Historinhas — Histórias para ler com seu filho</title>
+<meta name="description" content="Contos clássicos para pais lerem com os filhos. Coloque o nome do seu filho na história!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1b1140; --bg2:#2a1a5e; --card:#332069; --ink:#fff7ea; --ink2:#cfc3f2;
+  --gold:#ffcf5c; --pink:#ff7eb6; --teal:#5ce1c9; --accent:#8b5cf6;
+  --rd:22px; --fontStory:1.25rem;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:radial-gradient(1200px 800px at 70% -10%,#3b2a7e 0%,var(--bg) 60%);color:var(--ink);min-height:100vh}
+h1,h2,h3,.fredoka{font-family:'Fredoka','Nunito',sans-serif}
+button{font-family:inherit;border:0;cursor:pointer}
+.hidden{display:none!important}
+.screen{max-width:760px;margin:0 auto;padding:0 14px 120px}
+#reader{padding-bottom:210px}
+
+/* ---------- header ---------- */
+header.top{display:flex;align-items:center;justify-content:space-between;padding:18px 2px 8px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .moon{font-size:2rem;filter:drop-shadow(0 0 12px #ffcf5c88)}
+.logo h1{font-size:1.55rem;font-weight:700;letter-spacing:.5px}
+.logo small{display:block;color:var(--ink2);font-size:.72rem;font-weight:600;margin-top:-3px}
+.iconbtn{background:#ffffff14;color:var(--ink);width:44px;height:44px;border-radius:14px;font-size:1.25rem;display:grid;place-items:center}
+.iconbtn:active{transform:scale(.93)}
+
+/* ---------- ads ---------- */
+.ad{background:repeating-linear-gradient(45deg,#ffffff0a,#ffffff0a 12px,#ffffff12 12px,#ffffff12 24px);border:2px dashed #ffffff3d;border-radius:14px;color:var(--ink2);text-align:center;padding:14px 10px;font-size:.8rem;margin:10px 0;line-height:1.35}
+.ad b{color:var(--gold);font-size:.85rem}
+.ad .adnote{opacity:.75;font-size:.7rem}
+
+/* ---------- banner premium ---------- */
+.noads{display:flex;gap:12px;align-items:center;background:linear-gradient(120deg,#6d28d9,#a855f7);border-radius:var(--rd);padding:14px 16px;margin:8px 0 4px;box-shadow:0 10px 30px #0006}
+.noads .t{flex:1}
+.noads .t b{font-family:'Fredoka';font-size:1.02rem}
+.noads .t span{display:block;font-size:.78rem;color:#f3e8ff;margin-top:2px}
+.pricebtn{background:var(--gold);color:#3c2a00;font-weight:800;border-radius:999px;padding:10px 14px;font-size:.9rem;white-space:nowrap;box-shadow:0 4px 14px #0005}
+.pricebtn:active{transform:scale(.95)}
+
+/* ---------- grid ---------- */
+.sectiontitle{margin:18px 4px 10px;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px;margin-bottom:6px}
+.catdesc{margin:-6px 4px 12px;font-size:.78rem;color:var(--ink2);font-weight:700}
+.sectiontitle small{font-size:.68rem;color:var(--ink2);font-weight:700}
+.card{position:relative;border-radius:var(--rd);padding:16px 14px 14px;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;box-shadow:0 10px 24px #0007;overflow:hidden;color:#fff;text-align:left;transition:transform .12s}
+.card:active{transform:scale(.96)}
+.card .emoji{font-size:2.6rem;line-height:1;filter:drop-shadow(0 6px 8px #0007)}
+.card h3{font-size:1.02rem;font-weight:600;line-height:1.15;text-shadow:0 2px 6px #0008}
+.card .meta{font-size:.72rem;opacity:.92;font-weight:700}
+.badge{position:absolute;top:10px;right:10px;font-size:.66rem;font-weight:800;padding:4px 9px;border-radius:999px;background:#00000055;backdrop-filter:blur(4px)}
+.badge.free{background:#10b981;color:#fff}
+.badge.lock{background:#f59e0b;color:#4a3000}
+.badge.orig{background:#ec4899;color:#fff}
+
+/* ---------- reader ---------- */
+#reader header.top{position:sticky;top:0;background:linear-gradient(#1b1140f2,#1b1140e6);backdrop-filter:blur(8px);z-index:5;padding:12px 2px;border-bottom:1px solid #ffffff14}
+#reader h2.stitle{font-size:1.1rem;flex:1;text-align:center;padding:0 6px}
+#storybox{padding:8px 2px 20px}
+#storybox .cover{font-size:3.4rem;text-align:center;margin:14px 0 4px;filter:drop-shadow(0 8px 16px #0008)}
+#storybox .byline{text-align:center;color:var(--ink2);font-size:.8rem;margin-bottom:18px}
+#storybox p{font-size:var(--fontStory);line-height:1.75;margin:0 0 20px;padding:12px 14px;border-radius:16px;transition:background .3s;font-weight:600}
+#storybox p .sfxbtn{background:#ffffff1c;border-radius:999px;padding:2px 10px;font-size:1rem;margin-left:8px;vertical-align:middle}
+#storybox p.active{background:#ffffff17;box-shadow:inset 0 0 0 2px #ffcf5c66}
+#storybox p.active::first-letter{color:var(--gold)}
+.fim{text-align:center;margin:26px 0 10px}
+.fim .star{font-size:2.4rem}
+.fim h3{color:var(--gold);margin:6px 0 4px}
+.fim p{color:var(--ink2);font-size:.9rem}
+
+/* ---------- controls ---------- */
+#controls{position:fixed;left:0;right:0;bottom:0;z-index:20;background:linear-gradient(#2a1a5ecc,#221452f5);backdrop-filter:blur(14px);border-top:1px solid #ffffff22;padding:10px 12px calc(10px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto;border-radius:22px 22px 0 0}
+.ctlrow{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.ctlrow+.ctlrow{margin-top:8px}
+.ctl{background:#ffffff14;color:var(--ink);border-radius:14px;padding:9px 10px;font-size:.78rem;font-weight:800;display:flex;align-items:center;gap:6px;flex:1;justify-content:center}
+.ctl.on{background:var(--accent);box-shadow:0 0 14px #8b5cf680}
+.ctl.big{background:var(--gold);color:#3c2a00;font-size:1rem;flex:1.4}
+.ctl:active{transform:scale(.95)}
+select.ctl{appearance:none;text-align:center}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.rlabel{font-size:.68rem;color:var(--ink2);font-weight:800;white-space:nowrap}
+
+/* ---------- modals ---------- */
+.overlay{position:fixed;inset:0;background:#0c0626d9;backdrop-filter:blur(6px);z-index:50;display:grid;place-items:center;padding:18px}
+.modal{background:linear-gradient(170deg,#3b2a7e,#241553);border:1px solid #ffffff2a;border-radius:26px;padding:22px 20px;max-width:420px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px #000}
+.modal h3{font-size:1.25rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.modal .sub{color:var(--ink2);font-size:.85rem;margin-bottom:14px;line-height:1.45}
+.field{margin:12px 0}
+.field label{display:block;font-size:.78rem;font-weight:800;color:var(--gold);margin-bottom:6px}
+.field input[type=text]{width:100%;background:#ffffff12;border:2px solid #ffffff2e;border-radius:14px;padding:12px 14px;color:var(--ink);font-size:1rem;font-weight:700;outline:none}
+.field input[type=text]:focus{border-color:var(--gold)}
+.field .hint{font-size:.72rem;color:var(--ink2);margin-top:5px}
+.check{display:flex;align-items:center;gap:10px;background:#ffffff0e;border-radius:14px;padding:11px 12px;margin:8px 0;font-size:.85rem;font-weight:700}
+.check input{width:20px;height:20px;accent-color:var(--gold)}
+.mbtn{width:100%;border-radius:16px;padding:14px;font-size:1rem;font-weight:800;margin-top:10px}
+.mbtn.gold{background:var(--gold);color:#3c2a00}
+.mbtn.ghost{background:#ffffff14;color:var(--ink)}
+.mbtn.pink{background:linear-gradient(120deg,#ec4899,#f97316);color:#fff}
+.pricecard{background:#ffffff10;border:1px solid #ffffff22;border-radius:18px;padding:14px;margin:10px 0;text-align:center}
+.pricecard .p{font-family:'Fredoka';font-size:1.7rem;color:var(--gold)}
+.pricecard ul{list-style:none;font-size:.82rem;color:var(--ink2);margin-top:6px}
+.pricecard li{margin:3px 0}
+.interbox{text-align:center}
+.interbox .fake{background:#ffffff10;border:2px dashed #ffffff3d;border-radius:18px;padding:40px 16px;margin:14px 0;color:var(--ink2)}
+.interbox .count{font-family:'Fredoka';font-size:1.1rem;color:var(--gold)}
+.legal{font-size:.68rem;color:#9f93cf;line-height:1.5;margin-top:14px}
+footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px 10px;line-height:1.6}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:130px;background:#10b981;color:#fff;font-weight:800;padding:12px 20px;border-radius:999px;z-index:99;box-shadow:0 10px 30px #0008;font-size:.85rem}
+@media(min-width:520px){.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+</style>
+</head>
+<body>
+
+<!-- ============ HOME ============ -->
+<section id="home" class="screen">
+  <header class="top">
+    <div class="logo"><span class="moon">🌙</span><div><h1>Historinhas</h1><small>histórias para ler juntinhos</small></div></div>
+    <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes">⚙️</button>
+  </header>
+
+  <div class="ad" data-ad><b>📢 Espaço de anúncio (banner topo)</b><br><span class="adnote">Aqui entra o bloco AdMob/AdSense — banner 320×50 ou adaptativo</span></div>
+
+  <div class="noads" id="noadsBanner">
+    <div class="t"><b>✨ Remova os anúncios</b><span>Leitura sem interrupções, para sempre</span></div>
+    <button class="pricebtn" onclick="openPremium('ads')">R$ 19,90</button>
+  </div>
+
+  <div id="cats"></div>
+
+  <div class="ad" data-ad><b>📢 Espaço de anúncio (banner rodapé)</b><br><span class="adnote">Banner fixo inferior — some com a compra de R$ 19,90</span></div>
+
+  <footer class="credits">Histórias adaptadas de contos clássicos de <b>domínio público</b> (Irmãos Grimm, Perrault, Andersen, Collodi e as Mil e Uma Noites) + criações originais.<br>Feito com 💜 para pais e filhos.</footer>
+</section>
+
+<!-- ============ READER ============ -->
+<section id="reader" class="screen hidden">
+  <header class="top">
+    <button class="iconbtn" onclick="closeReader()" aria-label="Voltar">←</button>
+    <h2 class="stitle" id="readerTitle"></h2>
+    <button class="iconbtn" onclick="openPersonalize(currentStory.id,true)" aria-label="Nomes">🪄</button>
+  </header>
+  <div id="storybox"></div>
+  <div class="ad" data-ad><b>📢 Anúncio no leitor</b><br><span class="adnote">Banner nativo discreto no fim da história</span></div>
+</section>
+
+<!-- controles fixos do leitor -->
+<div id="controls" class="hidden">
+  <div class="ctlrow">
+    <button class="ctl big" id="btnPlay" onclick="toggleRead()">▶️ Ler com IA</button>
+    <button class="ctl" id="btnVoiceF" onclick="quickVoice('f')">👩 Voz</button>
+    <button class="ctl" id="btnVoiceM" onclick="quickVoice('m')">👨 Voz</button>
+  </div>
+  <div class="ctlrow">
+    <button class="ctl" id="btnScroll" onclick="toggleScroll()">🔄 Rolagem</button>
+    <button class="ctl" id="btnSfx" onclick="toggleSfx()">🔊 Efeitos</button>
+    <button class="ctl" onclick="fontSize(-1)">A−</button>
+    <button class="ctl" onclick="fontSize(1)">A+</button>
+  </div>
+  <div class="ctlrow">
+    <span class="rlabel">🐢 velocidade</span>
+    <input type="range" id="speed" min="1" max="10" value="3" oninput="setSpeed(this.value)">
+    <span class="rlabel">🐇</span>
+    <select class="ctl" id="voiceSel" style="max-width:130px" onchange="pickVoice(this.value)"></select>
+  </div>
+</div>
+
+<!-- ============ MODAL personalizar ============ -->
+<div class="overlay hidden" id="ovPersonalize">
+  <div class="modal">
+    <h3>🪄 Nomes mágicos</h3>
+    <p class="sub">A história fica muito mais divertida quando a criança vira o personagem!</p>
+    <div class="field">
+      <label>👧 Nome da criança</label>
+      <input type="text" id="inChild" placeholder="Ex.: Sofia" maxlength="20">
+      <div class="hint" id="hintChild"></div>
+    </div>
+    <label class="check"><input type="checkbox" id="ckChild" checked> Usar o nome da criança na história</label>
+    <div class="field">
+      <label>🧑 Seu nome (papai/mamãe)</label>
+      <input type="text" id="inParent" placeholder="Ex.: Fernando" maxlength="20">
+      <div class="hint" id="hintParent"></div>
+    </div>
+    <label class="check"><input type="checkbox" id="ckParent" checked> Usar o meu nome na história</label>
+    <button class="mbtn gold" onclick="startStory()">📖 Começar a história</button>
+    <button class="mbtn ghost" onclick="hide('ovPersonalize')">Cancelar</button>
+  </div>
+</div>
+
+<!-- ============ MODAL premium/compras ============ -->
+<div class="overlay hidden" id="ovPremium">
+  <div class="modal">
+    <h3>👑 Historinhas Premium</h3>
+    <p class="sub">Escolha o que combina com a sua família:</p>
+    <div class="pricecard">
+      <div>🚫📢 <b>Sem anúncios — para sempre</b></div>
+      <div class="p">R$ 19,90</div>
+      <ul><li>Remove todos os banners e intersticiais</li><li>Pagamento único</li></ul>
+      <button class="mbtn gold" onclick="buy('ads')">Remover anúncios</button>
+    </div>
+    <div class="pricecard">
+      <div>📚✨ <b>Passe Mágico — todas as histórias</b></div>
+      <div class="p">R$ 14,90</div>
+      <ul><li>Desbloqueia toda a Coleção Premium</li><li>Novas histórias incluídas</li></ul>
+      <button class="mbtn pink" onclick="buy('pass')">Desbloquear histórias</button>
+    </div>
+    <button class="mbtn ghost" onclick="hide('ovPremium')">Agora não</button>
+    <p class="legal">💡 Versão demonstração: os botões acima simulam a compra. No app publicado, conecte ao Google Play Billing / App Store (ou Pix via gateway) — os pontos de integração estão marcados no código como PAGAMENTO_AQUI.</p>
+  </div>
+</div>
+
+<!-- ============ MODAL história bloqueada ============ -->
+<div class="overlay hidden" id="ovLocked">
+  <div class="modal">
+    <h3>🔒 História Premium</h3>
+    <p class="sub" id="lockedName"></p>
+    <button class="mbtn pink" onclick="hide('ovLocked');openPremium('pass')">👑 Desbloquear tudo — R$ 14,90</button>
+    <button class="mbtn ghost" onclick="rewarded()">🎬 Assistir um anúncio e ler grátis 1 vez</button>
+    <button class="mbtn ghost" onclick="hide('ovLocked')">Voltar</button>
+  </div>
+</div>
+
+<!-- ============ MODAL intersticial (anúncio cheio) ============ -->
+<div class="overlay hidden" id="ovInter">
+  <div class="modal interbox">
+    <h3>📢 Anúncio</h3>
+    <div class="fake">Aqui entra o <b>anúncio intersticial / premiado</b><br>(AdMob Interstitial ou Rewarded)</div>
+    <div class="count" id="interCount">Aguarde 5s…</div>
+    <button class="mbtn ghost hidden" id="interClose" onclick="closeInter()">Fechar anúncio ✕</button>
+  </div>
+</div>
+
+<!-- ============ MODAL ajustes ============ -->
+<div class="overlay hidden" id="ovSettings">
+  <div class="modal">
+    <h3>⚙️ Ajustes</h3>
+    <div class="field">
+      <label>Status das compras</label>
+      <div class="hint" id="buyStatus"></div>
+    </div>
+    <button class="mbtn ghost" onclick="openPremium('ads')">👑 Ver planos premium</button>
+    <button class="mbtn ghost" onclick="resetAll()">🗑️ Apagar nomes e compras (teste)</button>
+    <button class="mbtn gold" onclick="hide('ovSettings')">Fechar</button>
+    <p class="legal">Historinhas v1.0 · As histórias desta coleção são adaptações originais de contos de domínio público. Personagens e textos das adaptações © Historinhas.</p>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   HISTORINHAS v1.0 — app de leitura pais & filhos
+   ===================================================== */
+
+/* ---------- estado ---------- */
+const S = {
+  child:'', parent:'', adsRemoved:false, passBought:false,
+  opens:0, sfxOn:true, voiceURI:'', rate:1, scrollSpeed:3, font:1.25,
+  rewardIds:{}
+};
+function save(){ try{ localStorage.setItem('historinhas', JSON.stringify({
+  child:S.child,parent:S.parent,adsRemoved:S.adsRemoved,passBought:S.passBought,voiceURI:S.voiceURI
+}))}catch(e){} }
+function load(){ try{ const d=JSON.parse(localStorage.getItem('historinhas')||'{}'); Object.assign(S,d);}catch(e){} }
+load();
+
+/* ---------- HISTÓRIAS ----------
+   {H} = nome da criança (herói/heroína)   {P} = nome do pai/mãe (personagem adulto)
+   sfx = efeito sonoro tocado quando o parágrafo é lido            */
+const STORIES=[
+{
+ id:'chapeuzinho', title:'Chapeuzinho Vermelho', emoji:'🧺🐺', free:true, mins:5, desc:'O lobo esperto que se deu mal',
+ hero:{role:'a Chapeuzinho', def:'Aninha'}, parent:{role:'o lenhador herói', def:'Seu Beto'},
+ paras:[
+  {t:'Era uma vez uma criança muito esperta chamada {H}, que ganhou da vovó uma capinha vermelha tão linda que nunca mais quis tirar. Por isso, todo mundo na vila dizia: lá vai a Chapeuzinho Vermelho!', sfx:'magic'},
+  {t:'Um dia, a mamãe chamou: {H}, a vovó está resfriada. Leve para ela esta cestinha com bolo de milho e chá de mel. Mas vá pela estrada e não converse com estranhos!'},
+  {t:'{H} partiu saltitando pela floresta. Os passarinhos cantavam bom dia e as borboletas dançavam ao redor da cestinha cheirosa.', sfx:'bird'},
+  {t:'Mas atrás de uma árvore, dois olhos amarelos espiavam… Era o Lobo! Ele farejou o bolo, olhou a capinha vermelha e teve uma ideia bem malandra.', sfx:'wolf'},
+  {t:'Aonde vai, criancinha? — perguntou o Lobo com voz de bonzinho. Vou à casa da vovó, do outro lado do bosque — respondeu {H}, sem parar de andar, porque criança esperta não dá conversa para lobo.'},
+  {t:'O Lobo saiu correndo por um atalho, chegou primeiro na casinha e — toc, toc, toc — bateu na porta imitando uma vozinha fina: Vovó, sou eu!', sfx:'knock'},
+  {t:'A vovó, que era muito sabida, espiou pela janela, viu aquele rabo peludo e — zupt! — se escondeu dentro do armário, quietinha como um ratinho.'},
+  {t:'O Lobo então vestiu a touca da vovó, pulou na cama e se cobriu até o focinho, esperando a cestinha chegar.', sfx:'creak'},
+  {t:'Quando {H} entrou, estranhou na hora: Vovó, que orelhas grandes! É para te ouvir melhor… Que olhos grandes! É para te ver melhor… E que boca enoooorme!'},
+  {t:'É PARA TE COMER! — rugiu o Lobo, pulando da cama. {H} correu ao redor da mesa gritando bem alto: Socorro! Tem lobo na casa da vovó!', sfx:'roar'},
+  {t:'Quem ouviu o grito foi {P}, o lenhador mais forte da floresta, que passava ali perto. {P} abriu a porta com um chute — CABRUM! — e fez a cara mais brava do mundo.', sfx:'steps'},
+  {t:'O Lobo ficou tão assustado com {P} que saiu pela janela de pijama e touca, e nunca mais apareceu naquela floresta.', sfx:'laugh'},
+  {t:'A vovó saiu do armário, deu um abraço apertado em {H} e os três comeram bolo de milho com chá de mel até a barriga fazer plim. E colorim colorado, esta história não terminou… porque amanhã tem mais!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'porquinhos', title:'Os Três Porquinhos', emoji:'🐷🏠', free:true, mins:5, desc:'Sopra que sopra, a casinha não cai',
+ hero:{role:'o porquinho mais esperto', def:'Chico'}, parent:{role:'o Mestre construtor', def:'Mestre Teodoro'},
+ paras:[
+  {t:'Era uma vez três porquinhos irmãos: Fufo, Lelo e o caçula {H}, que era pequeno no tamanho mas gigante nas ideias.'},
+  {t:'Um dia, a mamãe porca disse: filhos, vocês já cresceram! Está na hora de cada um construir a sua própria casinha. E cuidado com o Lobo Mau!'},
+  {t:'Fufo, que era o mais apressado, fez uma casa de palha em uma tarde. Prontinho! Agora é só brincar! — e saiu pulando.', sfx:'pop'},
+  {t:'Lelo, que era um pouquinho menos apressado, fez uma casa de gravetos em dois dias. Boa demais! — disse ele, e foi jogar bola com Fufo.', sfx:'knock'},
+  {t:'Já {H} foi visitar {P}, o construtor mais sabido da vila, e perguntou: qual é a casa mais forte do mundo? {P} sorriu: casa de tijolo, meu jovem. Demora, cansa, mas aguenta até tornado!'},
+  {t:'Então {H} carregou tijolo, misturou cimento e trabalhou dia após dia, enquanto os irmãos gritavam: vem brincar, {H}! E {H} respondia: já vou… só faltam 44 tijolos!', sfx:'steps'},
+  {t:'Foi quando, numa noite de vento, chegou o LOBO MAU, com uma fome de leão e um fôlego de furacão.', sfx:'wind'},
+  {t:'Ele parou na casa de palha: porquinho, porquinho, deixe-me entrar! Nem pensar! — disse Fufo. Então vou soprar, soprar e sua casa derrubar! FUUUU! A palha voou toda e Fufo correu para a casa de gravetos.', sfx:'wind'},
+  {t:'O Lobo foi atrás: porquinhos, porquinhos, abram a porta! De jeito nenhum! — gritaram os dois. FUUUUUU! Os gravetos voaram como palitinhos, e os dois correram para a casa de {H}.', sfx:'wind'},
+  {t:'O Lobo respirou fundo, estufou o peito e soprou com toda a força: FUUUUUUUU!… e nada. Soprou de novo: FUUUU!… nadinha. A casa de tijolos nem tremeu, e lá dentro os três porquinhos tomavam chocolate quente.', sfx:'laugh'},
+  {t:'Furioso, o Lobo subiu no telhado para entrar pela chaminé. Mas {H}, esperto como só ele, colocou um caldeirão de água bem quente na lareira.', sfx:'fire'},
+  {t:'O Lobo escorregou chaminé abaixo e — TCHIBUM! — caiu de bumbum na água quente! Saiu voando pela porta, uivando AI-AI-AI, e nunca mais soprou casa de porquinho.', sfx:'splash'},
+  {t:'Fufo e Lelo aprenderam a lição e construíram casas de tijolo bem ao lado da casa de {H}. E nas noites de vento, os três davam risada: pode soprar, seu Lobo… aqui ninguém sai do lugar!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'bau', title:'A Turma do Baú de Brinquedos', emoji:'🧸🚀', free:true, orig:true, mins:5, desc:'História original · brinquedos que ganham vida',
+ hero:{role:'a criança dona dos brinquedos', def:'Nino'}, parent:{role:'o papai da história', def:'o papai'},
+ paras:[
+  {t:'No quarto de {H} morava um baú de madeira cheio de brinquedos. E os brinquedos de {H} tinham um segredo… quando as luzes se apagavam, eles GANHAVAM VIDA!', sfx:'magic'},
+  {t:'Naquela noite, {P} deu um beijo de boa noite, apagou a luz e fechou a porta devagarinho. Um, dois, três roncos… {H} dormia a sono solto.', sfx:'snore'},
+  {t:'CREEEC… a tampa do baú se abriu. De lá saiu o Urso Barnabé, um ursinho de pelúcia com voz de trovão fofo: Turma, reunião de emergência! AMANHÃ É O ANIVERSÁRIO DE {H}!', sfx:'creak'},
+  {t:'Saltaram do baú a Capitã Cometa, uma boneca astronauta muito corajosa, o Dino, um dinossauro verde que tinha medo de escuro, e o Bip, um robozinho que só falava em bipes: bip-bip!', sfx:'pop'},
+  {t:'Vamos fazer a maior surpresa do mundo! — disse Barnabé. Cometa traça o plano, Dino carrega os balões e Bip acende as luzinhas. Missão: Festa Secreta!', sfx:'fanfare'},
+  {t:'Mas na hora de pegar o cartaz de FELIZ ANIVERSÁRIO, ele escorregou e — vuuup! — caiu atrás do guarda-roupa, o lugar mais escuro do quarto inteiro.', sfx:'whoosh'},
+  {t:'O Dino tremeu da cabeça ao rabo: a-a-ali não! Ali mora o Monstro do Escuro! Todo brinquedo sabia daquela lenda: uma criatura peluda e rastejante vivia atrás do guarda-roupa…', sfx:'heart'},
+  {t:'A Capitã Cometa ajustou o capacete: astronauta não tem medo do escuro, tem LANTERNA! Bip, luz máxima! Bip-bip! — e o robozinho acendeu os olhinhos como dois faróis.', sfx:'magic'},
+  {t:'A turma marchou na ponta dos pés: um passinho, dois passinhos… De repente, algo peludo se mexeu na escuridão! AAAAH! O MONSTRO!', sfx:'steps'},
+  {t:'Todo mundo se abraçou tremendo… até o Bip iluminar direitinho. O monstro peludo era… UMA MEIA! Uma meia velha e cheia de pó de {H}. A turma caiu na gargalhada — até o Dino!', sfx:'laugh'},
+  {t:'Trabalhando juntos, eles resgataram o cartaz, encheram os balões, penduraram as luzinhas e deixaram tudo pronto. Depois voltaram para o baú, na maior silenciosa, bem na hora do galo cantar.', sfx:'bird'},
+  {t:'De manhã, {H} abriu os olhos e viu o quarto inteiro brilhando: FELIZ ANIVERSÁRIO! {P} entrou com o bolo, achando que a surpresa tinha sido… mágica?', sfx:'fanfare'},
+  {t:'E dentro do baú, quatro brinquedos sorriam quietinhos. Porque brinquedo de verdade guarda segredo — e ama quem cuida dele. Fim… ou melhor: até a próxima aventura!', sfx:'magic'}
+ ]
+},
+{
+ id:'cinderela', title:'Cinderela', emoji:'👠✨', free:false, mins:6, desc:'O sapatinho de cristal',
+ hero:{role:'a Cinderela', def:'Cinderela'}, parent:{role:'o Rei, pai do príncipe', def:'Rei Augusto'},
+ paras:[
+  {t:'Era uma vez uma jovem de coração doce chamada {H}. Ela morava com a madrasta e duas irmãs muito mandonas, que a faziam limpar, cozinhar e costurar o dia inteiro.'},
+  {t:'De tanto dormir pertinho da lareira, {H} vivia com o rosto sujinho de cinzas — mas mesmo assim cantava enquanto trabalhava, e os passarinhos vinham cantar junto na janela.', sfx:'bird'},
+  {t:'Um dia, os mensageiros de {P}, o Rei daquele reino, anunciaram na praça: o Rei {P} dará um grande baile no castelo, e TODAS as jovens do reino estão convidadas!', sfx:'fanfare'},
+  {t:'As irmãs se arrumaram com os vestidos mais caros e partiram na carruagem, gargalhando: você não, {H}! Baile não é lugar de quem tem cinza no nariz!', sfx:'laugh'},
+  {t:'{H} ficou sozinha no jardim, com uma lágrima escorrendo. Foi quando uma luz brilhou no céu e — puf! — apareceu uma senhora sorridente com uma varinha: sou sua Fada Madrinha, e você VAI ao baile!', sfx:'magic'},
+  {t:'Bibbidi, bobbidi… A fada transformou uma abóbora em carruagem dourada, quatro ratinhos em cavalos brancos e o vestido velho em um vestido azul que brilhava como o céu. E nos pés, sapatinhos de cristal!', sfx:'magic'},
+  {t:'Mas atenção — avisou a fada — à meia-noite o encanto acaba e tudo volta a ser como era. À MEIA-NOITE, nem um minutinho a mais!', sfx:'bell'},
+  {t:'No castelo, quando {H} entrou, a música parou e todos olharam. O príncipe atravessou o salão e a convidou para dançar. E dançaram, dançaram, dançaram, como se o mundo inteiro fosse só uma valsa.'},
+  {t:'De repente… DONG! DONG! O relógio da torre começou a bater meia-noite! {H} saiu correndo pelas escadarias — e um sapatinho de cristal escapou do seu pé e ficou para trás.', sfx:'bell'},
+  {t:'O príncipe, apaixonado, levou o sapatinho ao Rei {P}, que falou bem alto para todo mundo ouvir: vamos encontrar a dona deste sapatinho! Experimentem em todas as moças do reino!', sfx:'fanfare'},
+  {t:'O ajudante do Rei viajou de casa em casa. As irmãs de {H} espremeram, empurraram e até dobraram os dedos — mas nada. Foi quando uma voz doce disse: posso experimentar?', sfx:'knock'},
+  {t:'O sapatinho deslizou no pé de {H} como se fosse feito só para ela — porque era! E do bolso do avental ela tirou… o outro sapatinho!', sfx:'magic'},
+  {t:'Teve festa no reino inteiro. {H} e o príncipe se casaram, e ela, que sempre teve o coração maior que o castelo, perdoou a madrasta e as irmãs. E foram todos felizes para sempre.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'brancadeneve', title:'Branca de Neve', emoji:'🍎⛏️', free:false, mins:6, desc:'Os sete anões e a maçã',
+ hero:{role:'a Branca de Neve', def:'Branca de Neve'}, parent:{role:'o caçador de bom coração', def:'Bruno'},
+ paras:[
+  {t:'Era uma vez uma princesa de pele clarinha como a neve, cabelos escuros como a noite e sorriso doce como mel. Seu nome era {H}, e todo o reino a adorava.'},
+  {t:'Mas a rainha madrasta era vaidosa e tinha um espelho mágico. Todos os dias perguntava: espelho, espelho meu, existe alguém mais bela do que eu? E o espelho respondia: és bela, majestade… mas {H} é mil vezes mais!', sfx:'magic'},
+  {t:'Verde de inveja, a rainha chamou {P}, o caçador do castelo, e ordenou: leve {H} para a floresta e não a deixe voltar nunca mais!'},
+  {t:'Mas {P} tinha o coração bondoso. Na floresta, ajoelhou e sussurrou: corra, princesa. Corra para bem longe e não volte ao castelo. Eu direi à rainha que você sumiu no bosque. E assim {P} salvou a vida de {H}.', sfx:'heart'},
+  {t:'{H} correu entre as árvores escuras até encontrar uma casinha torta, com sete caminhas pequenininhas, sete pratinhos e sete canequinhas. Que cansaço… — bocejou, e adormeceu atravessada nas caminhas.', sfx:'night'},
+  {t:'Era a casa dos SETE ANÕES, que voltaram da mina cantando heigh-ho e encontraram aquela visita dormindo. Quando {H} acordou e contou sua história, eles bateram os pezinhos: fique conosco! Aqui ninguém te acha!', sfx:'steps'},
+  {t:'Os dias na casinha eram alegres: {H} cozinhava sopa de abóbora, os anões traziam pedrinhas brilhantes da mina, e à noite todos dançavam ao redor da fogueira.', sfx:'fire'},
+  {t:'Mas no castelo, o espelho contou a verdade: {H} vive, na casa dos sete anões! A rainha ferveu de raiva, preparou uma poção, virou uma velhinha vendedora e envenenou a maçã mais vermelha do cesto.', sfx:'wolf'},
+  {t:'Toc, toc! Maçãzinhas frescas! {H}, que era gentil demais, abriu a janela. Uma mordidinha só, querida… {H} mordeu a maçã e caiu em um sono profundo, profundo como o fundo do mar.', sfx:'knock'},
+  {t:'Os anões chegaram a tempo de ver a velha fugindo pela montanha em meio aos trovões — e a tempestade cuidou para que ela nunca mais voltasse.', sfx:'rain'},
+  {t:'Tristes, os anões fizeram para {H} uma caminha de cristal na clareira, e cuidavam dela todos os dias, trazendo flores da floresta.'},
+  {t:'Até que um dia passou por ali um príncipe que já tinha conhecido {H} e nunca esqueceu dela. Ele chegou pertinho e deu nela um beijo de amor verdadeiro. Os olhos de {H} se abriram devagarinho… e ela sorriu.', sfx:'magic'},
+  {t:'Teve festa em dobro no reino: o casamento de {H} e a medalha de coragem para o caçador {P}, o herói que salvou a princesa. E os sete anões? Dançaram heigh-ho a noite inteira!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'belafera', title:'A Bela e a Fera', emoji:'🌹🏰', free:false, mins:6, desc:'A rosa encantada',
+ hero:{role:'a Bela', def:'Bela'}, parent:{role:'o pai da Bela', def:'Maurício'},
+ paras:[
+  {t:'Era uma vez uma jovem chamada {H}, que amava livros mais do que tudo. Ela morava numa vila pequenina com seu pai, {P}, um inventor de máquinas malucas que ela adorava.'},
+  {t:'Um dia, {P} partiu em viagem para vender sua invenção. Mas no meio do caminho, uma tempestade terrível o fez se perder na floresta escura.', sfx:'rain'},
+  {t:'Procurando abrigo, {P} encontrou um castelo sombrio de portões enormes. Lá dentro, o fogo estava aceso e a mesa posta — mas não havia ninguém. Ninguém que ele pudesse VER…', sfx:'creak'},
+  {t:'Ao partir, {P} colheu uma rosa do jardim para levar de presente a {H}. Foi quando uma sombra gigante rugiu: LADRÃO! Você roubou minha rosa… agora ficará preso no meu castelo para sempre!', sfx:'roar'},
+  {t:'Era a FERA: chifres, garras e uma capa rasgada. O cavalo de {P} fugiu e galopou até a vila, e {H} entendeu na hora: papai está em perigo!', sfx:'steps'},
+  {t:'No castelo, {H} fez a proposta mais corajosa do mundo: solte meu pai, e eu fico no lugar dele. A Fera estranhou tanta coragem… e aceitou. {P} partiu chorando, prometendo voltar.'},
+  {t:'{H} descobriu que o castelo era encantado: o relógio dava conselhos, o bule contava piadas e a xícara pequenina virava cambalhota. Todos eram os empregados do castelo, transformados pelo mesmo feitiço da Fera.', sfx:'magic'},
+  {t:'E tinha um segredo: uma rosa brilhante guardada dentro de um vidro. Se a última pétala caísse antes de a Fera aprender a amar e ser amada, o encanto duraria para sempre.', sfx:'heart'},
+  {t:'Os dias passaram e algo mudou. A Fera salvou {H} dos lobos da floresta, e ela cuidou dos ferimentos dele. Ele deu a ela a biblioteca inteira do castelo — o presente mais bonito que {H} já recebeu.', sfx:'wolf'},
+  {t:'Uma noite, os dois dançaram no grande salão dourado, e a xícara pequenina cochichou para o bule: está funcionando!', sfx:'bell'},
+  {t:'Mas {H} viu no espelho mágico que {P} estava doente, procurando por ela na floresta. Vá — disse a Fera, com a voz triste. Você está livre. E deixou {H} partir, mesmo sabendo que a última pétala ia cair.'},
+  {t:'{H} salvou o pai e, olhando a rosa que ele um dia colheu, entendeu o próprio coração: voltou galopando ao castelo e disse à Fera: eu amo você. E a última pétala… parou no ar.', sfx:'magic'},
+  {t:'Uma luz envolveu o castelo inteiro! A Fera virou príncipe, o bule virou cozinheira, a xícara virou um menininho sapeca. E {H}, o príncipe e o vovô {P} viveram felizes — com a maior biblioteca do reino só para eles.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'pinoquio', title:'Pinóquio', emoji:'🤥🎪', free:false, mins:6, desc:'O boneco que queria ser real',
+ hero:{role:'o Pinóquio', def:'Pinóquio'}, parent:{role:'o Gepeto, o pai marceneiro', def:'Gepeto'},
+ paras:[
+  {t:'Era uma vez um velho marceneiro chamado {P}, que morava sozinho e sonhava em ter um filho. Um dia, ele esculpiu na madeira um boneco de nariz pontudo e sorriso levado, e o chamou de {H}.', sfx:'knock'},
+  {t:'Naquela noite, {P} olhou a estrela mais brilhante do céu e pediu: estrelinha, queria tanto que {H} fosse um menino de verdade…', sfx:'night'},
+  {t:'Enquanto {P} dormia, uma Fada Azul entrou pela janela e tocou o boneco com sua varinha: acorde, {H}! Se você for corajoso, honesto e bondoso, um dia será um menino de verdade!', sfx:'magic'},
+  {t:'E ela deixou um ajudante: o Grilo Falante, encarregado de ser a vozinha da consciência de {H}. Quando ficar na dúvida entre o certo e o errado — disse o grilo — é só me escutar: cri-cri!', sfx:'bird'},
+  {t:'{P} acordou, viu o boneco andando e falando, e dançou de alegria pela oficina inteira! No dia seguinte, vendeu seu casaco para comprar os livros da escola de {H}.', sfx:'laugh'},
+  {t:'Mas no caminho da escola, {H} encontrou uma raposa muito espertalhona: escola? Que nada! Venha para o teatro de marionetes ganhar moedas de ouro! E {H}, esquecendo o cri-cri do grilo, foi…'},
+  {t:'Deu tudo errado, é claro. E quando a Fada Azul apareceu perguntando o que houve, {H} inventou: eu… fui capturado por piratas! E o nariz cresceu. Eram MIL piratas! E o nariz cresceu mais. Num navio GIGANTE! E o nariz virou um galho cheio de passarinhos!', sfx:'pop'},
+  {t:'{H} caiu no choro: eu menti, fada… A cada verdade dita, o nariz encolhia um pouquinho, até voltar ao normal. Mentira tem perna curta e nariz comprido — sorriu a fada.', sfx:'magic'},
+  {t:'Mas a notícia mais triste chegou pelo grilo: {P} tinha saído de barco pelo mar procurando {H}… e foi ENGOLIDO por uma baleia do tamanho de uma montanha!', sfx:'splash'},
+  {t:'Sem pensar duas vezes, {H} pulou no oceano. Nadou, nadou, e quando a baleia bocejou — glup! — pulou direto na boca dela, de propósito, para encontrar seu pai.', sfx:'splash'},
+  {t:'Dentro da barriga escura, lá estava {P}, num barquinho com uma lamparina. {H}! Você veio me salvar! {H} teve a ideia: fizeram uma fogueira de gravetos, e a fumaça fez a baleia soltar o maior ESPIRRO dos sete mares!', sfx:'fire'},
+  {t:'ATCHIM! Os dois voaram para fora e nadaram até a praia. {H} remou, empurrou e protegeu {P} das ondas até o fim, mesmo ficando com a madeira toda encharcada.', sfx:'wind'},
+  {t:'Naquela noite, a Fada Azul voltou: {H}, você foi corajoso, honesto e bondoso. A luz brilhou… e o boneco virou um menino de verdade! {P} chorou de alegria, e o Grilo Falante ganhou uma medalhinha dourada: cri-cri!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'sereia', title:'A Pequena Sereia', emoji:'🧜‍♀️🌊', free:false, mins:6, desc:'O fundo do mar de Andersen',
+ hero:{role:'a pequena sereia', def:'Marina'}, parent:{role:'o Rei do Mar', def:'Rei Nereu'},
+ paras:[
+  {t:'Lá no fundo do mar, onde a água é mais azul que o céu, ficava o reino de {P}, o Rei do Mar. E a filha mais nova de {P} era uma sereiazinha curiosa chamada {H}.', sfx:'splash'},
+  {t:'{H} colecionava coisas do mundo lá de cima: um garfo, uma luneta, um sapato… e vivia perguntando: papai {P}, como será que é andar com dois pés?'},
+  {t:'{P} franzia a testa: o mundo da superfície é perigoso, filha. Seu lugar é aqui, entre os corais e as baleias. Mas coração curioso não obedece testa franzida…', sfx:'wolf'},
+  {t:'Numa noite de tempestade, {H} subiu à superfície e viu um navio ser engolido pelas ondas. Um jovem príncipe afundava! {H} mergulhou, o segurou forte e nadou com ele até a praia.', sfx:'rain'},
+  {t:'Na areia, ela cantou baixinho até ele abrir os olhos. Mas antes que o príncipe pudesse vê-la direito, {H} mergulhou de volta — sereias não podem ser vistas! Só que o coração dela ficou lá na praia…', sfx:'heart'},
+  {t:'{H} procurou a Bruxa dos Mares, que morava numa caverna escura cheia de algas. Quer pernas, docinho? Eu faço… em troca da sua VOZ. E lembre-se: se o príncipe amar outra, você virará espuma do mar!', sfx:'creak'},
+  {t:'{H} aceitou. Uma dor de formigamento, um rodamoinho de bolhas — e de repente ela estava na praia, com duas pernas trêmulas de gente e nenhuma voz na garganta.', sfx:'magic'},
+  {t:'O príncipe a encontrou e a levou ao palácio. Mesmo sem falar, {H} dançava, sorria e desenhava o fundo do mar para ele. Cada dia os dois ficavam mais amigos… mas ela não podia contar seu segredo.'},
+  {t:'Enquanto isso, no fundo do mar, {P} procurava a filha em cada gruta e recife. Quando descobriu o combinado da bruxa, o Rei subiu com seu tridente brilhando: devolva a voz da minha filha!', sfx:'fanfare'},
+  {t:'A bruxa tentou prender {H} nas suas algas para sempre, mas o amor de um pai é mais forte que qualquer feitiço: {P} ergueu o tridente e — TRUM! — a caverna da bruxa virou areia fininha.', sfx:'roar'},
+  {t:'A voz voltou para {H}, e o príncipe, ao ouvi-la cantar, reconheceu na hora: era você! Foi você quem me salvou do mar!', sfx:'bell'},
+  {t:'{P} olhou para a filha, olhou para o príncipe, suspirou fundo como só os pais sabem suspirar… e ergueu o tridente uma última vez, deixando {H} escolher: pernas na terra, cauda no mar — e visitas em casa todo domingo!', sfx:'magic'},
+  {t:'E assim {H} viveu entre os dois mundos: dançava no palácio e nadava com os golfinhos. E {P}? Ganhou o genro, uma luneta de presente… e nunca mais franziu a testa.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'rapunzel', title:'Rapunzel', emoji:'👸🗼', free:false, mins:5, desc:'Jogue suas tranças!',
+ hero:{role:'a Rapunzel', def:'Rapunzel'}, parent:{role:'o pai jardineiro', def:'Jonas'},
+ paras:[
+  {t:'Era uma vez {P}, um jardineiro que cuidava das flores mais bonitas do reino, e sua filhinha {H}, que nasceu com cabelos dourados que brilhavam como o sol.', sfx:'bird'},
+  {t:'Uma bruxa invejosa, chamada Gotel, descobriu que os cabelos de {H} tinham magia: curavam machucados e faziam flores nascerem. E numa noite escura… levou a menina para longe.', sfx:'wind'},
+  {t:'Gotel escondeu {H} numa torre altíssima, sem porta e sem escada, no meio da floresta. Para subir, gritava lá de baixo: {H}, jogue suas tranças! E escalava pelos cabelos compridos.', sfx:'creak'},
+  {t:'Os anos passaram e as tranças de {H} cresceram vinte metros! Ela pintava as paredes, cantava com os passarinhos e sonhava com as luzes que via longe, na cidade — sem saber que eram as lanternas que {P} acendia todo ano, esperando a filha voltar.', sfx:'heart'},
+  {t:'Um dia, um jovem aventureiro fugindo de guardas escalou a torre para se esconder. {H} o recebeu… com uma frigideirada na cabeça! POF! Quem é você?! Como subiu aqui?!', sfx:'pop'},
+  {t:'Quando a confusão passou, fizeram um trato: ele a levaria para ver as luzes de perto. {H} desceu da torre pela primeira vez na vida e — que delícia! — sentiu a grama fazer cócegas nos pés.', sfx:'laugh'},
+  {t:'Na cidade, era dia do Festival das Luzes. {H} dançou na praça, comeu bolinho de chuva e, quando mil lanternas subiram ao céu, sentiu o coração apertar: eu conheço essas luzes desde pequenininha…', sfx:'magic'},
+  {t:'Do outro lado da praça, um jardineiro de cabelos grisalhos soltava sua lanterna, como fazia todos os anos. Era {P}. Os dois se olharam… e não precisou de mais nada. Papai? Minha menina!', sfx:'bell'},
+  {t:'Mas Gotel apareceu no meio da festa para levar {H} de volta! Só que sem os truques da torre, sem mentiras e sem magia roubada, uma bruxa não tem poder nenhum: os guardas do reino a levaram para bem longe.', sfx:'roar'},
+  {t:'{H} cortou as tranças compridas — chega de escada de cabelo! — e doou a magia que restava para o jardim do pai, onde as flores nunca mais murcharam.', sfx:'magic'},
+  {t:'E todo ano, no Festival das Luzes, {H}, {P} e o jovem aventureiro soltavam juntos a lanterna mais brilhante de todas. Porque família é isso: uma luzinha que sempre encontra o caminho de casa.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'aladim', title:'Aladim e a Lâmpada Maravilhosa', emoji:'🧞🪔', free:false, mins:6, desc:'Três desejos das Mil e Uma Noites',
+ hero:{role:'o Aladim', def:'Aladim'}, parent:{role:'o Gênio da Lâmpada', def:'Gênio Zaz'},
+ paras:[
+  {t:'Numa cidade de torres douradas e mercados barulhentos vivia {H}, um jovem pobre mas de coração enorme, que dividia seu único pão com os gatinhos da rua.'},
+  {t:'Um dia, um feiticeiro misterioso lhe ofereceu uma moeda de ouro por um favor: entre naquela caverna e traga para mim uma lâmpada velha. Mas NÃO toque em mais nada!', sfx:'creak'},
+  {t:'A Caverna das Maravilhas era cheia de montanhas de ouro e joias até o teto. Mas {H} obedeceu: pegou só a lâmpada empoeirada. O feiticeiro, que era falso e malvado, fechou a caverna com {H} lá dentro!', sfx:'roar'},
+  {t:'No escuro, {H} esfregou a lâmpada para limpar a poeira e… FUUUSH! Uma fumaça azul encheu a caverna e dela saiu um ser gigante e sorridente: eu sou {P}, o Gênio da Lâmpada! Três desejos, meu novo mestre!', sfx:'magic'},
+  {t:'{H} arregalou os olhos: três desejos?! {P} deu uma gargalhada que fez a caverna tremer: isso mesmo! Mas tem regras: não posso fazer ninguém se apaixonar, nem trazer coisas do passado de volta. E nada de pedir mais desejos, hein!', sfx:'laugh'},
+  {t:'Primeiro desejo: sair desta caverna! PUF! Num piscar de olhos, {H} e {P} estavam no telhado do mercado, vendo o pôr do sol. E ali começou a amizade mais improvável do reino.', sfx:'whoosh'},
+  {t:'{H} conheceu a princesa Jasmim no mercado — esperta, corajosa, e cansada de viver trancada no palácio. Os dois conversaram por horas sobre sonhos e liberdade. Aí {H} suspirou: gênio… segundo desejo: quero parecer um príncipe, para poder entrar no palácio.', sfx:'fanfare'},
+  {t:'{P} caprichou: roupas de seda, um desfile com camelos, tapete voador e até fogos! Mas avisou, coçando a barba de fumaça: posso te vestir de príncipe, amigo… mas quem tem que ser incrível é VOCÊ.', sfx:'magic'},
+  {t:'O feiticeiro, descobrindo tudo, roubou a lâmpada! Com {P} obrigado a obedecê-lo, ele se fez sultão e trancou a cidade inteira em correntes de magia escura.', sfx:'wind'},
+  {t:'Mas {H} não precisava de magia para ser esperto. Ele desafiou o feiticeiro: você é poderoso… mas nunca será um gênio! O feiticeiro, todo se achando, desejou virar o gênio mais poderoso do universo. ERRO!', sfx:'pop'},
+  {t:'Virou gênio… e com o gênio vêm a lâmpada e as correntes! O feiticeiro foi sugado para dentro de uma lamparina apertadinha, que {P} arremessou para o meio do deserto: bom descanso, colega!', sfx:'splash'},
+  {t:'Faltava só um desejo. Todos esperavam que {H} pedisse ouro ou um reino. Mas ele sorriu para o amigo azul: terceiro desejo… {P}, você está LIVRE! Pela primeira vez em mil anos, o gênio chorou de alegria.', sfx:'heart'},
+  {t:'{P}, livre, virou o padrinho das aventuras de {H} e Jasmim. E se você um dia encontrar uma lâmpada velha e empoeirada… esfregue devagarinho. Vai que é amigo de {P}!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'joaoemaria', title:'João e Maria', emoji:'🍬🏠', free:false, mins:5, desc:'A casinha de doces',
+ hero:{role:'o irmão mais corajoso', def:'João'}, parent:{role:'o pai lenhador', def:'Seu Pedro'},
+ paras:[
+  {t:'Era uma vez dois irmãos, {H} e Maria, que moravam na beira da floresta com seu pai, {P}, um lenhador pobre mas muito carinhoso.'},
+  {t:'Os tempos estavam difíceis e a comida era pouquinha. Um dia, perdidos atrás de frutinhas na floresta, {H} e Maria andaram, andaram… e quando viram, não sabiam mais voltar.', sfx:'wind'},
+  {t:'{H} teve uma ideia de gênio: deixou pedrinhas brancas caindo pelo caminho. Mas os passarinhos, achando que era comida, levaram tudo embora!', sfx:'bird'},
+  {t:'A noite chegou, escura e cheia de barulhinhos. Maria apertou a mão do irmão: {H}, estou com medo… E ele respondeu firme: enquanto eu estiver aqui, nada de mau vai te acontecer.', sfx:'night'},
+  {t:'De manhã, um cheiro doce chamou os dois: no meio da floresta havia uma CASINHA DE DOCES! Paredes de pão de mel, janelas de açúcar, telhado de chocolate e pirulitos no jardim!', sfx:'magic'},
+  {t:'Nham! Os dois provaram um pedacinho da janela… e a porta se abriu, rangendo. Uma velhinha de óculos convidou: entrem, entrem, criancinhas! Tem bolo e chocolate quente lá dentro!', sfx:'creak'},
+  {t:'Ah, mas era uma cilada: a velhinha era uma BRUXA que morava numa casa de doces só para atrair crianças! Ela prendeu {H} num cercadinho e mandou Maria acender o forno gigante.', sfx:'roar'},
+  {t:'Mas irmão esperto, irmã mais esperta ainda. A bruxa enxergava mal, então {H} lhe dava um gravetinho quando ela pedia para apertar seu dedo — magrelo demais, ainda não! — e ganhava tempo.', sfx:'pop'},
+  {t:'Quando a bruxa mandou Maria olhar dentro do forno, a menina se fez de boba: não sei olhar, dona bruxa… me ensina? A bruxa, impaciente, enfiou a cabeça no forno para mostrar — e Maria fechou a porta! CLACK!', sfx:'fire'},
+  {t:'Maria libertou {H} e, no armário da bruxa, os dois encontraram um baú de moedas de ouro e pedras brilhantes — tudo que a malvada tinha tomado de outras pessoas.', sfx:'bell'},
+  {t:'Na volta, um pato branco os ajudou a atravessar o rio, e do outro lado eles ouviram a voz mais querida do mundo: {H}! MARIA! Era {P}, que procurava os filhos dia e noite sem parar, rouco de tanto chamar.', sfx:'splash'},
+  {t:'O abraço dos três durou o tamanho de três invernos. Com o tesouro da bruxa, nunca mais faltou pão — e sobrou até para os vizinhos. E doce? Ah, doce eles só comiam em casa, obrigado!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'rainhadaneve', title:'A Rainha da Neve', emoji:'❄️👑', free:false, mins:6, desc:'O conto que inspirou os filmes de gelo',
+ hero:{role:'a Gerda, a menina corajosa', def:'Gerda'}, parent:{role:'o corvo falante', def:'Coró'},
+ paras:[
+  {t:'Era uma vez dois melhores amigos: {H} e Kai. Moravam em sótãos vizinhos e cuidavam juntos de um pé de rosas na janela, que dava flor até no frio.', sfx:'bird'},
+  {t:'Num inverno, um espelho mágico da neve se quebrou no céu, e um caquinho de gelo, pequenininho como um grão de areia, entrou no olho de Kai e escorregou até seu coração.', sfx:'magic'},
+  {t:'O coração de Kai foi congelando devagarinho. Ele parou de sorrir, disse que as rosas eram feias e que brincar era coisa de bebê. {H} não entendia: o que aconteceu com meu amigo?', sfx:'heart'},
+  {t:'Numa noite de nevasca, um trenó branco e brilhante passou pela vila. Era a RAINHA DA NEVE, alta e feita de inverno. Ela envolveu Kai em seu manto gelado e o levou para o Palácio de Gelo, no fim do mundo.', sfx:'wind'},
+  {t:'Todos disseram: esqueça o menino, {H}. Mas amiga de verdade não esquece. Ela calçou as botinhas vermelhas e partiu sozinha, seguindo o inverno.', sfx:'steps'},
+  {t:'No caminho, {H} encontrou {P}, um corvo falante muito educado, de cachecol e tudo. Crau! Eu sei para onde vão os trenós brancos, senhorita! Siga-me — e voou na frente, mostrando o caminho.', sfx:'bird'},
+  {t:'{P} a levou por florestas nevadas e a apresentou a uma rena veloz. Nas noites frias, o corvo abria as asas para cobrir {H} do vento, contando histórias de reinos distantes até ela dormir.', sfx:'night'},
+  {t:'Quanto mais perto do Palácio de Gelo, mais frio fazia. A rena parou na fronteira do inverno eterno: daqui só o seu coração quente pode continuar. E {H} continuou, com {P} voando ao lado: crau, coragem, menina!', sfx:'wind'},
+  {t:'O palácio era feito de paredes de gelo e silêncio. No salão mais fundo, Kai montava quebra-cabeças de gelo, azul de frio, sem reconhecer nem a melhor amiga: quem é você?', sfx:'creak'},
+  {t:'{H} o abraçou e chorou de saudade. Suas lágrimas, quentinhas de amor, escorreram até o coração de Kai — e derreteram o caquinho de gelo! Kai piscou, olhou em volta e sorriu: {H}?! Eu tive um sonho tão frio…', sfx:'magic'},
+  {t:'A Rainha da Neve apareceu, enorme e brilhante. Mas diante de um coração que derretia gelo, ela não tinha poder nenhum. Apenas se curvou, virou flocos de neve… e nevou para longe.', sfx:'bell'},
+  {t:'A rena os levou de volta, com {P} fazendo piruetas no céu: crau-crau, missão cumprida! Na janela dos sótãos, o pé de rosas floresceu como nunca.', sfx:'laugh'},
+  {t:'E {H} e Kai cresceram sabendo o segredo que a Rainha da Neve nunca entendeu: nenhum inverno é mais forte que um coração quente. Fim!', sfx:'fanfare'}
+ ]
+}
+,
+{
+ id:'meiasumida', title:'O Mistério da Meia Sumida', emoji:'🧦🔍', cat:'suspense', free:true, orig:true, mins:5, desc:'Um detetive dentro de casa',
+ hero:{role:'o detetive mirim', def:'Detetive Bina'}, parent:{role:'o vovô, detetive aposentado', def:'Vô Chico'},
+ paras:[
+  {t:'Na casa de {H}, estava acontecendo um mistério de arrepiar: TODA semana, uma meia desaparecia do varal. Sempre uma só. Nunca o par inteiro. Misterioso… muito misterioso.', sfx:'night'},
+  {t:'{H} decidiu: chega! A partir de hoje, sou o maior detetive desta casa! Pegou uma lupa, um caderninho e um lápis atrás da orelha, igualzinho nos filmes.', sfx:'pop'},
+  {t:'Para ajudar no caso, {H} chamou o maior especialista que conhecia: {P}, que já tinha sido detetive de verdade e resolvido o famoso Caso do Bolo Desaparecido de 1987.', sfx:'knock'},
+  {t:'Regra número um — disse {P}, ajeitando o chapéu — todo mistério deixa pistas. Regra número dois: suspeite de todo mundo… até do gato.'},
+  {t:'Os dois listaram os suspeitos no caderninho: a máquina de lavar (barulhenta demais para ser inocente), o vento (fugiu da cena do crime), o cachorro Bolota (ficou nervoso na hora das perguntas) e o gato Farofa (nem abriu o olho, suspeito demais).', sfx:'laugh'},
+  {t:'Naquela noite, {H} e {P} montaram uma tocaia na área de serviço, escondidos atrás do cesto de roupas, com uma lanterna e biscoitos de espião — porque detetive também merece lanche.', sfx:'night'},
+  {t:'A casa foi ficando escura e silenciosa… Só se ouvia o tic-tac do relógio e um ronco baixinho: era {P}, dormindo na tocaia! {H} cutucou: vovô, acorde! Detetive não ronca!', sfx:'snore'},
+  {t:'De repente… CREC. CREC. CREC. Um barulhinho de passos no telhado da lavanderia! A lanterna de {H} tremeu. Os passos desceram pela janela… e pararam bem em cima do varal!', sfx:'creak'},
+  {t:'AGORA! — gritou {H}, acendendo a luz. E lá estava o ladrão, congelado no meio do pulo, com uma meia listrada na boca: FAROFA, o gato! Miau? — disse ele, fazendo cara de anjo.', sfx:'pop'},
+  {t:'Farofa saiu correndo e os dois detetives foram atrás, até o esconderijo secreto atrás do sofá. E ali estava… o TESOURO: dezessete meias arrumadinhas, formando a caminha mais macia e fofa do mundo.', sfx:'steps'},
+  {t:'{H} e {P} se olharam e não conseguiram brigar com o gato. Caso encerrado com acordo — anotou {H} no caderninho: Farofa ganhou uma caminha de verdade, e as meias voltaram para o varal.', sfx:'laugh'},
+  {t:'A dupla de detetives comemorou com chocolate quente. E se uma meia sumir aí na sua casa… você já sabe por onde começar a investigação!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'casafimdarua', title:'A Casa no Fim da Rua', emoji:'🏚️🌕', cat:'suspense', free:false, orig:true, mins:5, desc:'Ninguém nunca entrou lá… até hoje',
+ hero:{role:'quem teve coragem de bater na porta', def:'Vitinho'}, parent:{role:'o carteiro mais valente da cidade', def:'Seu Nilo'},
+ paras:[
+  {t:'No fim da rua de {H} existia uma casa antiga, de portão enferrujado e janelas sempre fechadas. As crianças juravam: ali mora um monstro comedor de bicicletas!', sfx:'wind'},
+  {t:'Toda noite, coisas estranhas aconteciam: uma luzinha acendia e apagava na janela, uma fumaça cheirosa saía da chaminé e, na sexta-feira, ouvia-se um barulho… de CORRENTE se arrastando!', sfx:'creak'},
+  {t:'Um dia, a bola de {H} voou por cima do portão enferrujado. Plóft. Bem no jardim da casa misteriosa. Silêncio na rua inteira. Ninguém respirava.', sfx:'pop'},
+  {t:'Foi quando chegou {P}, o carteiro, com uma carta na mão: ora, ora… finalmente alguém para me acompanhar! Há trinta anos entrego cartas nesta casa e nunca vi monstro nenhum. Vamos buscar essa bola?', sfx:'steps'},
+  {t:'{H} engoliu seco, segurou firme na mão de {P}, e os dois empurraram o portão: nheeeec… O jardim era cheio de girassóis. Estranho. Monstro planta girassol?', sfx:'creak'},
+  {t:'TUM. TUM. TUM. Passos pesados do outro lado da porta! A maçaneta girou devagarinho… {H} apertou a mão de {P} com força… e a porta se abriu.', sfx:'heart'},
+  {t:'Na porta apareceu uma senhora pequenininha, de óculos enormes e avental de bolinhas: visitas! VISITAS! Que alegria, entrem, entrem! O bolo acabou de sair do forno!', sfx:'bell'},
+  {t:'Era Dona Zilda, que morava sozinha com seu cachorro Trovão — um dogue gigante e babão cuja coleira de corrente fazia aquele barulho arrepiante de sexta-feira, dia do banho dele!', sfx:'laugh'},
+  {t:'E a luzinha que acendia e apagava? Era o abajur de escrever cartas: Dona Zilda escrevia para o filho marinheiro, e era {P} quem levava as cartas para o navio, há trinta anos, sem contar o segredo para ninguém.', sfx:'night'},
+  {t:'{H} comeu bolo de fubá, jogou bola com Trovão no meio dos girassóis e descobriu que Dona Zilda sabia histórias de piratas melhores que qualquer desenho.', sfx:'laugh'},
+  {t:'No dia seguinte, {H} contou para a rua inteira: na casa do fim da rua não mora um monstro. Mora a melhor contadora de histórias da cidade! E o portão enferrujado nunca mais ficou fechado.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'barulhosotao', title:'O Barulho do Sótão', emoji:'🪜🔦', cat:'suspense', free:false, orig:true, mins:4, desc:'Toc… toc… o que será?',
+ hero:{role:'quem subiu a escada do sótão', def:'Duda'}, parent:{role:'o papai da lanterna', def:'o papai'},
+ paras:[
+  {t:'Era uma noite de vento quando {H} ouviu pela primeira vez: TOC… TOC… TOC. Um barulhinho vindo lá de cima. Do sótão. O lugar mais escuro da casa.', sfx:'night'},
+  {t:'{H} puxou a coberta até o nariz. Deve ser o vento… Mas aí o barulho mudou: FRU-FRU-FRU. Vento não faz fru-fru!', sfx:'wind'},
+  {t:'Na cozinha, {H} contou tudo para {P}, que estava fazendo um chá. {P} não riu, não disse que era bobagem. Só pegou a lanterna grande e falou: então vamos descobrir juntos o que é. Mistério a dois assusta metade.', sfx:'steps'},
+  {t:'A escada do sótão rangia a cada degrau: nhec… nhec… nhec… {P} ia na frente com a lanterna, {H} vinha atrás segurando na barra do pijama dele.', sfx:'creak'},
+  {t:'A porta do sótão se abriu, e a lanterna iluminou caixas antigas, um cavalo de pau, teias de aranha… e dois olhos AMARELOS e REDONDOS brilhando no escuro!', sfx:'heart'},
+  {t:'{H} quase gritou, mas {P} apertou seu ombro devagarinho: shhh… olha com calma. Medo, de perto, quase sempre é outra coisa.'},
+  {t:'A luz subiu devagar e mostrou… uma CORUJA! Uma mamãe coruja, branquinha e fofa, que tinha feito ninho na janelinha quebrada do sótão. E ao lado dela, três filhotinhos de olhos enormes: piu! piu! piu!', sfx:'bird'},
+  {t:'O TOC-TOC era o biquinho dela arrumando gravetos. O FRU-FRU eram as asas cobrindo os bebês no frio. O grande mistério do sótão era, na verdade, uma família se aquecendo.', sfx:'laugh'},
+  {t:'{H} e {P} deixaram a janelinha aberta, um potinho de água e voltaram na ponta dos pés. Boa noite, dona coruja. Desculpe o susto — sussurrou {H}.', sfx:'night'},
+  {t:'Agora, quando o vento sopra e o sótão faz toc-toc, {H} sorri no escuro: é só a vizinha de cima, cuidando dos filhotes. E dorme gostoso, porque descobriu o segredo dos corajosos: olhar de pertinho, de mãos dadas.', sfx:'magic'}
+ ]
+},
+{
+ id:'fantasmabiblioteca', title:'O Fantasma da Biblioteca', emoji:'📚👻', cat:'suspense', free:false, orig:true, mins:5, desc:'Livros que trocam de lugar sozinhos',
+ hero:{role:'o leitor mais corajoso', def:'Rafa'}, parent:{role:'o bibliotecário', def:'Seu Otávio'},
+ paras:[
+  {t:'A biblioteca da escola de {H} tinha um segredo que ninguém explicava: os livros TROCAVAM DE LUGAR SOZINHOS. O livro de dinossauros amanhecia na prateleira de receitas. O de piratas, no meio dos dicionários!', sfx:'magic'},
+  {t:'E tinha mais: às vezes se ouvia um barulhinho — nhac, nhac, nhac — vindo de trás das estantes. As crianças cochichavam: é o Fantasma Comedor de Livros!', sfx:'creak'},
+  {t:'{P}, o bibliotecário, estava ficando de cabelo em pé: se o fantasma continuar bagunçando tudo, nunca mais vou achar livro nenhum! {H}, você que adora mistério… me ajuda a investigar?', sfx:'knock'},
+  {t:'{H} topou na hora e fez um plano de detetive profissional: polvilhar farinha no chão entre as estantes. Fantasma pode ser invisível, mas pegada de fantasma… será que existe?', sfx:'pop'},
+  {t:'Na manhã seguinte, lá estavam elas: PEGADAS! Minúsculas, de cinco dedinhos, indo e voltando da estante de aventuras até um buraquinho atrás da enciclopédia mais gorda.', sfx:'steps'},
+  {t:'Fantasma com pata pequenininha? — desconfiou {H}. {P} coçou a cabeça: e fantasma que só mexe nos livros de aventura? Que fantasma exigente!', sfx:'laugh'},
+  {t:'Os dois montaram vigia depois da aula, escondidos atrás do carrinho de livros, quietos como pontos finais. A biblioteca foi escurecendo… e o barulhinho começou: nhac, nhac, nhac…', sfx:'night'},
+  {t:'Da fresta atrás da enciclopédia saiu… um HAMSTER! Gordinho, bochechudo, carregando um pedacinho de papel na boca. Era o Teobaldo, o hamster da turma do segundo ano, fugido da gaiola havia um mês!', sfx:'pop'},
+  {t:'O danadinho tinha feito um ninho quentinho atrás dos livros — de PAPEL PICADO! Por isso os livros andavam: ele empurrava os da frente para abrir caminho, como um tratorzinho peludo.', sfx:'laugh'},
+  {t:'Teobaldo voltou para a gaiola (agora com cadeado reforçado), ganhou papel picado à vontade, e {P} pendurou uma plaquinha na biblioteca: MISTÉRIO RESOLVIDO PELO DETETIVE {H}.', sfx:'fanfare'},
+  {t:'E o melhor: virou moda na escola. Agora todo mundo quer ler os livros de aventura… os favoritos do fantasma mais fofo que já existiu.', sfx:'bell'}
+ ]
+},
+{
+ id:'sombrajardim', title:'A Sombra do Jardim', emoji:'🌳🌘', cat:'suspense', free:false, orig:true, mins:4, desc:'Ela aparece quando o sol vai embora',
+ hero:{role:'quem desvendou a sombra', def:'Lalá'}, parent:{role:'o vizinho jardineiro', def:'Seu Tião'},
+ paras:[
+  {t:'Todo dia, na hora em que o sol ia embora, uma sombra COMPRIDA e MAGRELA aparecia no muro do jardim de {H}. Tinha braços abertos, chapéu pontudo e balançava devagar… como se acenasse.', sfx:'wind'},
+  {t:'{H} espiava pela janela, com o coração fazendo tum-tum-tum. Quem é você, dona sombra? Mas a sombra só balançava, balançava…', sfx:'heart'},
+  {t:'Uma tarde, {H} criou coragem e chamou {P}, o vizinho jardineiro que conhecia cada folha daquela rua: {P}, tem uma coisa misteriosa no meu muro. Aparece só quando escurece!'},
+  {t:'{P} limpou as mãos no avental, pegou seu regador e disse a frase que {H} nunca esqueceu: sombra é como boato, {H}. Cresce muito, mas nasce de uma coisinha pequena. Vamos procurar a coisinha?', sfx:'steps'},
+  {t:'Os dois esperaram o sol começar a descer, sentados no degrau com um suco de laranja. E lá veio ela: primeiro os braços… depois o chapéu pontudo… balançando, balançando…', sfx:'night'},
+  {t:'{P} apontou o dedo, seguindo a sombra até a origem, como quem segue um rio até a nascente: atravessou o quintal, pulou a horta e parou bem… ali!', sfx:'creak'},
+  {t:'Era o ESPANTALHO da horta de {P}! De braços abertos, chapéu de palha pontudo, camisa velha balançando no vento da tardinha. Com o sol baixinho, a sombra dele esticava, esticava… até virar um gigante no muro!', sfx:'laugh'},
+  {t:'{H} caiu na risada: eu tava com medo do… GUARDA DA HORTA? {P} riu junto: o Firmino? Ele só assusta passarinho, e olhe lá — semana passada um bem-te-vi fez ninho no bolso dele!', sfx:'bird'},
+  {t:'Para comemorar, {P} deixou {H} dar um upgrade no Firmino: cachecol colorido, flor no chapéu e um sorriso de botões. Agora a sombra no muro parecia dançar forró.', sfx:'pop'},
+  {t:'E {H} aprendeu o truque que conta para todo mundo: quando uma sombra assustar você, não fuja dela — procure a nascente. No fim do medo, quase sempre tem um espantalho sorrindo.', sfx:'fanfare'}
+ ]
+}
+,
+{
+ id:'tesouroquintal', title:'O Mapa do Tesouro do Quintal', emoji:'🗺️💰', cat:'aventura', free:true, orig:true, mins:5, desc:'X marca o lugar!',
+ hero:{role:'o caçador de tesouros', def:'Pipo'}, parent:{role:'o velho capitão pirata', def:'Capitão Barba'},
+ paras:[
+  {t:'Num sábado de manhã, {H} achou uma garrafa velha enterrada no quintal. E dentro dela… UM MAPA! Amarelado, rasgado na beirada, com um X vermelho e um aviso: SÓ PARA CORAJOSOS.', sfx:'magic'},
+  {t:'{H} correu para mostrar ao avô, e levou o maior susto da vida: o vovô olhou o mapa, ficou branco, e sussurrou: onde você achou isso, grumete? Este mapa… é MEU. Do tempo em que fui o {P}, o pirata mais temido dos sete mares!', sfx:'wolf'},
+  {t:'VOVÔ, VOCÊ ERA PIRATA?! — {P} colocou um lenço na cabeça e piscou: aposentado, meu jovem. Mas tesouro enterrado é promessa pendurada. Vamos buscá-lo? Aye! — gritou {H}, que não sabia o que era aye, mas gritou assim mesmo.', sfx:'fanfare'},
+  {t:'A primeira pista dizia: dez passos ao norte da árvore que chora. A árvore que chora?! É o salgueiro! — decifrou {H}. E lá se foram os dois, contando passos: um, dois, três…', sfx:'steps'},
+  {t:'No pé do salgueiro, uma seta de pedrinhas apontava para o PÂNTANO PROIBIDO — que era como {P} chamava o canteiro de lama atrás da horta. Atravessaram pisando em pedras, e {H} quase caiu: equilíbrio de pirata, grumete!', sfx:'splash'},
+  {t:'A segunda pista estava numa lata enferrujada: cante para a guardiã do portão, ou ela não deixará passar. A guardiã era… a galinha Filomena! {H} cantou parabéns pra você, e Filomena, toda orgulhosa, saiu do caminho: có!', sfx:'bird'},
+  {t:'Faltava o último desafio: a Caverna do Rugido — a casinha do cachorro Trovão, que roncava lá dentro como um dragão. O X ficava BEM atrás dela.', sfx:'snore'},
+  {t:'{H} teve uma ideia de capitão: jogou uma bolinha para looonge. Trovão saiu voando atrás, e os dois caçadores de tesouro cavaram rápido, com pá de praia e tudo: chuc, chuc, chuc…', sfx:'steps'},
+  {t:'TOC! A pá bateu em algo duro. Um baú! Pequeno, de madeira, fechado com um cadeado enferrujado. {P} tirou do bolso uma chavinha que carregava no cordão do pescoço havia quarenta anos: eu sabia que esse dia ia chegar.', sfx:'creak'},
+  {t:'Dentro do baú havia moedas antigas, bolinhas de gude, uma foto de {P} criança… e um bilhete: o verdadeiro tesouro é ter alguém para caçar tesouros junto. Assinado: {P}, 8 anos de idade.', sfx:'heart'},
+  {t:'{H} e {P} enterraram um baú novo, com segredos novos, para o próximo corajoso da família. E se você um dia achar uma garrafa no quintal… desenterre. Nunca se sabe quem foi pirata nesta vida!', sfx:'fanfare'}
+ ]
+},
+{
+ id:'montanha', title:'A Montanha dos Três Desafios', emoji:'⛰️🦅', cat:'aventura', free:false, orig:true, mins:5, desc:'Só sobe quem não desiste',
+ hero:{role:'quem chegou ao topo', def:'Kiko'}, parent:{role:'o guia da montanha', def:'Guto'},
+ paras:[
+  {t:'Diziam que ninguém pequeno conseguia subir a Montanha do Vento Cantador. E era exatamente por isso que {H} queria subir. Pois quem disse que tamanho mede coragem?', sfx:'wind'},
+  {t:'Na trilha, {H} conheceu {P}, o guia que conhecia a montanha como a palma da mão: então quer chegar ao topo? A montanha vai te testar três vezes. Se passar, ela te mostra o segredo dela.'},
+  {t:'Primeiro desafio: a PONTE DE CORDA, balançando sobre o rio. {H} olhou para baixo e as pernas viraram gelatina. {P} ensinou: não olhe para o medo, olhe para o próximo passo. Um de cada vez.', sfx:'creak'},
+  {t:'Passo… passo… passo… A ponte balançava, o rio cantava lá embaixo, e de repente — {H} estava do outro lado! UHUUU! O grito ecoou pela montanha inteira.', sfx:'splash'},
+  {t:'Segundo desafio: a GRUTA ESCURA, um túnel na rocha onde não entrava nem um fiapo de luz. Lá dentro, morcegos! {P} entregou a lanterna: agora é você quem guia. Eu vou atrás de VOCÊ.', sfx:'night'},
+  {t:'{H} respirou fundo e entrou. Os morcegos fizeram fru-fru lá no alto, uma gota fez plic, e a luz da lanterna tremeu… mas não apagou. Quando apareceu a saída, {H} percebeu: o escuro assusta mais antes de entrar.', sfx:'heart'},
+  {t:'Terceiro desafio, o mais difícil: a SUBIDA SEM FIM, um caminho de pedras que não acabava nunca. As pernas de {H} doíam, a barriga roncava, e uma vozinha dizia: desiste, desiste…', sfx:'steps'},
+  {t:'{H} sentou numa pedra, pronto para voltar. {P} sentou junto, dividiu um sanduíche e apontou para trás: olha quanto você já subiu. Desistir agora é desperdiçar tudo isso. E dividiu também o último gole de suco.', sfx:'pop'},
+  {t:'Com a barriga cheia e o coração teimoso, {H} levantou: só mais dez passos. Depois: só mais dez. E foi de dez em dez que, de repente… acabou a subida. O TOPO!', sfx:'fanfare'},
+  {t:'Lá de cima, o mundo parecia uma maquete: casinhas de brinquedo, rios de fita azul, nuvens na altura do nariz. E o vento cantava mesmo — uuuuh — o segredo da montanha: quem sobe devagar também chega.', sfx:'wind'},
+  {t:'{P} pendurou no casaco de {H} uma medalhinha de escalador: você venceu a ponte, o escuro e o cansaço. A montanha agora é sua amiga. E montanha amiga, {H} descobriu, a gente visita a vida inteira.', sfx:'bell'}
+ ]
+},
+{
+ id:'riojacares', title:'O Rio dos Jacarés Sorridentes', emoji:'🐊🛶', cat:'aventura', free:false, orig:true, mins:5, desc:'Reme, reme, sem parar!',
+ hero:{role:'o canoeiro destemido', def:'Nina'}, parent:{role:'o explorador da selva', def:'Zeca'},
+ paras:[
+  {t:'No coração da floresta corria um rio verde-esmeralda onde, dizia a lenda, moravam jacarés que SORRIAM. E todo mundo sabe: jacaré sorrindo é sinal de… ninguém sabia de quê!', sfx:'bird'},
+  {t:'{H} chegou à beira do rio com colete, chapéu e protetor solar no nariz, pronto para descobrir. Ali encontrou {P}, o explorador, remendando uma canoa amarela: vai encarar o rio, parceirinho? Então sobe. Mas aviso: aqui, quem manda é a correnteza.', sfx:'splash'},
+  {t:'A canoa deslizou rio abaixo. Macacos pulavam de galho em galho fazendo uh-uh-ah-ah, tucanos passavam voando baixinho, e borboletas azuis do tamanho de um pires pousavam no remo.', sfx:'bird'},
+  {t:'De repente, dois olhinhos surgiram na água. Depois quatro. Depois DEZ! Jacarés! E todos… sorrindo! {H} apertou o remo: {P}, por que eles estão sorrindo?! {P} sussurrou: é o que vamos descobrir. Reme com carinho.', sfx:'heart'},
+  {t:'Os jacarés não atacaram. Só acompanharam a canoa, como uma fila de guarda-costas sorridentes, até uma curva do rio onde o barulho começou: TCHOOOOO… CACHOEIRA!', sfx:'wind'},
+  {t:'REMA, {H}, REMA! Os dois remaram com toda a força para a margem, mas a correnteza era mais forte — a canoa rodou, pulou, e desceu a cachoeira: TCHIBUUUUM!', sfx:'splash'},
+  {t:'Quando {H} abriu os olhos, a canoa boiava num lago calmo e… os jacarés estavam ao redor, empurrando a canoa com o focinho até a areia! Eles não perseguiam a canoa. Eles estavam CUIDANDO dela!', sfx:'magic'},
+  {t:'Na margem, {H} e {P} entenderam tudo: um filhote de jacaré estava preso num emaranhado de cipós, chorando baixinho. Os jacarés sorridentes precisavam de mãos — e jacaré não tem mão!', sfx:'creak'},
+  {t:'{P} segurou os cipós e {H}, com o canivete de explorador, cortou com cuidado: um, dois… três! O filhote deslizou para a água e a família inteira bateu o rabo na água, comemorando: splash, splash, splash!', sfx:'splash'},
+  {t:'O jacaré mais velho, enorme e cheio de cicatrizes, chegou pertinho da canoa e fez uma coisa que {P} nunca tinha visto em quarenta anos de selva: abaixou a cabeça devagarinho, bem devagarinho, como quem diz MUITO OBRIGADO.', sfx:'bell'},
+  {t:'E foi assim que {H} descobriu o que significa jacaré sorrindo: é jacaré pedindo ajuda. A dupla ganhou passagem livre para sempre no rio verde-esmeralda — e guarda-costas sorridentes em toda aventura.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'ilhavulcao', title:'A Ilha do Vulcão que Espirra', emoji:'🌋🏝️', cat:'aventura', free:false, orig:true, mins:5, desc:'Uma ilha com o nariz entupido',
+ hero:{role:'o marujo mais esperto', def:'Tita'}, parent:{role:'o capitão do barco', def:'Capitão Nando'},
+ paras:[
+  {t:'O barco de {P} navegava por mares nunca dantes navegados quando o vigia — que era {H}, de binóculo e tudo — gritou lá do mastro: TERRA À VISTAAAA!', sfx:'wind'},
+  {t:'Era uma ilha linda, de areia branquinha e coqueiros dançantes. Só tinha um detalhe: no meio dela, um vulcão. E o vulcão fazia um barulho estranho: fum… fum… FUM…', sfx:'heart'},
+  {t:'{P} coçou a barba: vulcão roncando não é bom sinal, marujo. Mas os papagaios da ilha voaram até o barco gritando: socorro! socorro! — e capitão que é capitão não ignora papagaio aflito.', sfx:'bird'},
+  {t:'Na ilha, os bichos estavam desesperados: o vulcão ia explodir! Mas uma tartaruga velhíssima, de uns trezentos anos, explicou devagar (porque tartaruga explica tudo devagar): não… é… explosão… é… ESPIRRO. O vulcão… está… ENTUPIDO.', sfx:'laugh'},
+  {t:'Entupido?! {H} escalou com {P} até a boca do vulcão para espiar. Lá dentro, presa na garganta da montanha, havia uma rolha gigante de troncos, cipós e — pasmem — um ninho de albatroz abandonado.', sfx:'steps'},
+  {t:'Se a gente não desentupir, o espirro vai ser tão grande que manda os coqueiros para a lua! — disse {P}. {H} olhou em volta e teve uma ideia daquelas: e se a gente fizer… COCEGUINHA?', sfx:'pop'},
+  {t:'Plano em ação: os macacos amarraram cipós na rolha, os papagaios chamaram todos os bichos, e {P} comandou o cabo de guerra mais maluco dos sete mares: UM, DOIS, TRÊS… PUXAAAA!', sfx:'fanfare'},
+  {t:'Nada. A rolha nem se mexeu. Então {H} pegou a pena mais comprida do albatroz, desceu de corda até a beirada da garganta e fez cócegas na rocha: guili, guili, guili…', sfx:'creak'},
+  {t:'O chão tremeu. O vulcão franziu a cratera. FUM… FUM… FUUUUM… {H} subiu correndo — TODO MUNDO PRA PRAIA! — e a ilha inteira mergulhou atrás das pedras.', sfx:'roar'},
+  {t:'AAAAA-TCHIIIIIM! O espirro jogou a rolha para o alto mar, junto com três coquinhos e o chapéu de {P}. E do vulcão desentupido saiu só uma fumacinha aliviada: fiiiu…', sfx:'wind'},
+  {t:'A ilha fez a maior festa da sua história, com suco de coco para todos. A tartaruga de trezentos anos declarou {H} o Herói… Oficial… da Ilha. E o vulcão? Esse nunca mais ficou resfriado — mas, por garantia, os macacos guardam a pena do albatroz até hoje.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'fundodomar', title:'Expedição ao Fundo do Mar', emoji:'🐙🤿', cat:'aventura', free:false, orig:true, mins:5, desc:'Um polvo gigante precisa de ajuda',
+ hero:{role:'quem pilotou o submarino', def:'Beni'}, parent:{role:'o comandante do submarino', def:'Comandante Leo'},
+ paras:[
+  {t:'O submarino Bolha Amarela desceu devagarinho para o azul profundo, fazendo bolhas: blub, blub, blub… No comando, {P}. No assento do piloto-mirim: {H}, no seu primeiro mergulho oficial.', sfx:'splash'},
+  {t:'Missão do dia — anunciou {P} — encontrar a lendária Pérola Cantora, que ilumina o fundo do mar. Nenhuma expedição jamais a encontrou. {H} ajustou o cinto: então seremos a primeira!', sfx:'fanfare'},
+  {t:'Lá fora, o espetáculo começou: cardumes prateados dançando em espiral, uma arraia planando como tapete voador e um baiacu que inflou de susto quando o submarino buzinou — desculpa, seu Baiacu!', sfx:'pop'},
+  {t:'No fundo, a luz foi sumindo e os peixes-lanterna acenderam seus farolzinhos. {P} apontou o sonar: bip… bip… bip! Tem algo GRANDE ali na frente, piloto. Curva a bombordo! Pra que lado é bombordo?! Esquerda! ESQUERDA!', sfx:'heart'},
+  {t:'Do escuro surgiu um polvo GIGANTE, cor de ferrugem, com cada braço do tamanho de um ônibus. E ele parecia bravo: enrolou o submarino com dois tentáculos e sacudiu: chacoalha pra cá, chacoalha pra lá!', sfx:'roar'},
+  {t:'{H} olhou bem pela janelinha, em vez de fechar os olhos — e viu: no terceiro tentáculo do polvo havia uma REDE DE PESCA velha, toda enroscada, apertando o braço dele. Comandante! Ele não está bravo… está MACHUCADO!', sfx:'creak'},
+  {t:'{P} sorriu orgulhoso: então a missão mudou. Braço mecânico ativado! {H} pilotou o bracinho de garra do submarino com o cuidado de quem tira figurinha do álbum: um cortezinho aqui… outro ali…', sfx:'steps'},
+  {t:'A rede se soltou e afundou enrolada. O polvo esticou o braço livre, ficou cor-de-rosa de alegria (polvo muda de cor, sabia?) e fez uma dancinha de oito braços que balançou o oceano.', sfx:'laugh'},
+  {t:'Em agradecimento, ele enrolou um tentáculo na pontinha do submarino — devagarinho, como quem dá a mão — e guiou o Bolha Amarela por um caminho secreto no meio das pedras, até uma gruta que brilhava… CANTANDO.', sfx:'magic'},
+  {t:'Era a Pérola Cantora! Do tamanho de uma melancia, brilhando como a lua e cantarolando uma música de ninar que fazia até tubarão bocejar. {H} tirou uma foto… e a deixou exatamente onde estava. Tesouro do mar, no mar.', sfx:'bell'},
+  {t:'Na volta, {P} escreveu no diário de bordo: Pérola encontrada. Amigo de oito braços conquistado. E o piloto {H} aprovou com louvor — porque enxergou o machucado onde todos veriam um monstro.', sfx:'fanfare'}
+ ]
+}
+,
+{
+ id:'festabarulhenta', title:'A Festa Barulhenta', emoji:'🎧🎈', cat:'tea', free:true, orig:true, mins:5, desc:'Com meus fones, eu consigo',
+ hero:{role:'a estrela da história', def:'Miguel'}, parent:{role:'o papai que entende', def:'o papai'},
+ paras:[
+  {t:'{H} adorava três coisas: bolo de chocolate, balões azuis e o primo Caco. E a festa de aniversário do Caco ia ter as três! Só tinha um probleminha… festa também tem BARULHO.', sfx:'heart'},
+  {t:'{H} era autista, e os ouvidos de {H} eram como superpotentes: escutavam TUDO ao mesmo tempo — a música, as risadas, o liquidificador, o cachorro do vizinho e até a lâmpada fazendo zzzzz. Às vezes, tudo junto virava uma tempestade lá dentro.'},
+  {t:'Por isso, antes da festa, {P} sentou com {H} e mostrou as fotos do salão: olha, vai ser aqui. Primeiro os parabéns, depois o bolo, depois os balões. E olha o que eu trouxe: seus fones de ouvido e nosso cartão do combinado.', sfx:'bell'},
+  {t:'O combinado era assim: se o barulho apertar, {H} mostra o cartão amarelo, e {P} leva {H} para o Cantinho Calmo, sem pressa e sem bronca. Combinado é combinado — e combinado deixa tudo mais fácil.'},
+  {t:'Na festa, {H} brincou com Caco, empilhou seis copinhos coloridos em ordem de tamanho (ficou perfeito) e balançou as mãozinhas de alegria quando viu os balões azuis — é assim que a alegria de {H} dança para fora.', sfx:'laugh'},
+  {t:'Mas aí chegou a hora dos parabéns. Todo mundo cantando alto, palmas, apito, gritaria… A tempestade começou a se formar. {H} apertou os olhos e procurou {P} na multidão.', sfx:'heart'},
+  {t:'{P} já estava olhando. {H} mostrou o cartão amarelo — e não precisou dizer nada. {P} atravessou o salão, estendeu a mão e os dois saíram juntos, tranquilos, para o jardim.', sfx:'steps'},
+  {t:'No Cantinho Calmo, com os fones nos ouvidos, o mundo ficou macio de novo. {H} respirou fundo três vezes, do jeito que treinou: cheira a flor… assopra a velinha… cheira a flor… assopra a velinha…', sfx:'wind'},
+  {t:'Melhor? — perguntou {P}, sem pressa. {H} fez que sim e sorriu: quero bolo agora. E voltaram, no tempo de {H}, bem na hora em que a tia cortava o primeiro pedaço — o da pontinha, com mais cobertura!', sfx:'pop'},
+  {t:'Caco veio sentar do lado, e sabe o que fez? Pediu para experimentar os fones: caraca, que confortável! Você tem os melhores acessórios, {H}! Os dois riram com a boca cheia de chocolate.', sfx:'laugh'},
+  {t:'Na volta para casa, {P} disse baixinho: tenho muito orgulho de você. Você conhece a sua tempestade e sabe o que fazer com ela. Isso é coisa de gente grande. {H} dormiu no banco de trás, abraçado com um balão azul. A festa tinha sido, na medida certa, PERFEITA.', sfx:'night'}
+ ]
+},
+{
+ id:'rotinamudou', title:'O Dia em que a Chuva Mudou Tudo', emoji:'🌦️📋', cat:'tea', free:false, orig:true, mins:5, desc:'Plano B também pode ser bom',
+ hero:{role:'quem venceu o imprevisto', def:'Alice'}, parent:{role:'o papai do plano B', def:'o papai'},
+ paras:[
+  {t:'No quadro de rotina de {H}, cada dia tinha suas figurinhas na ordem certinha. E o sábado era o melhor quadro de todos: café com panqueca, PARQUE, sorvete, banho, história, dormir.', sfx:'bell'},
+  {t:'{H} amava o parque de um jeito enorme: o balanço que vai e volta, vai e volta, sempre igual, e a areia escorrendo entre os dedos. Sábado sem parque? Isso não existia no quadro de {H}.'},
+  {t:'Mas naquele sábado, o céu acordou cinza. E na hora da panqueca… PLIC. PLIC. PLIC. Chuva. Chuva grossa, daquelas de não poder sair. O balanço ia ficar molhado, sozinho, vazio.', sfx:'rain'},
+  {t:'Dentro de {H}, tudo apertou. O sábado estava ERRADO. A figurinha do parque estava lá no quadro, mas o parque não ia acontecer! {H} sentiu vontade de gritar, e os olhos encheram de lágrimas quentes.', sfx:'heart'},
+  {t:'{P} não disse "não foi nada" — porque foi, sim. {P} sentou no chão, pertinho mas sem apertar, e disse: você está bravo com a chuva. Eu também. A gente esperava o parque. Pode ficar bravo um pouquinho, eu espero junto.'},
+  {t:'{H} apertou seu dinossauro de borracha muitas vezes — aperta, solta, aperta, solta — até a raiva ir ficando do tamanho de uma formiga. {P} esperou. Esperar junto também é abraço.', sfx:'wind'},
+  {t:'Então {P} trouxe o quadro de rotina e uma figurinha nova, misteriosa: e se a gente inventasse um PLANO B? Plano B não é o dia errado… é um dia secreto, que só aparece quando chove.'},
+  {t:'{H} escolheu as figurinhas novas, uma por uma, e montou o sábado secreto: cabana de lençol na sala, piquenique DENTRO da cabana, e uma coisa que {H} nunca tinha feito: pular nas poças da varanda, de bota e capa!', sfx:'pop'},
+  {t:'A cabana ficou incrível — lanterna, almofadas, biscoitos em fila arrumados por cor. E as poças? TCHIBUM! TCHIBUM! {H} descobriu que chuva na bota faz um barulho engraçado e que água de poça pula junto com a gente.', sfx:'splash'},
+  {t:'À noite, no quadro, {P} pendurou a figurinha nova para sempre: um guarda-chuva sorrindo. Se um dia o plano A não der certo — explicou — a gente não fica sem chão. A gente tem o dia secreto de reserva.', sfx:'bell'},
+  {t:'{H} dormiu abraçado com o dinossauro, ouvindo a chuva no telhado — plic, plic, plic — que agora nem parecia inimiga. Parecia só a chuva, fazendo o trabalho dela: regar as flores e, de vez em quando, inventar sábados secretos.', sfx:'night'}
+ ]
+},
+{
+ id:'colecaodinos', title:'O Expert em Dinossauros', emoji:'🦕🏆', cat:'tea', free:false, orig:true, mins:5, desc:'Saber muito de uma coisa é um superpoder',
+ hero:{role:'o maior expert da escola', def:'Theo'}, parent:{role:'o professor', def:'Professor Davi'},
+ paras:[
+  {t:'{H} sabia TUDO sobre dinossauros. Não era "gostar de dinossauro". Era conhecer cada nome científico, cada período, cada dieta: o braquiossauro comia 400 quilos de folhas por dia, e o velociraptor era do tamanho de um peru — pois é, um peru!', sfx:'laugh'},
+  {t:'Enquanto outras crianças trocavam de assunto toda hora, {H} mergulhava fundo num só — e que mergulho! Os 61 dinossauros da coleção ficavam em fila na estante, organizados por período: triássico, jurássico, cretáceo. Ai de quem mudasse um de lugar.'},
+  {t:'Na escola, nem todo mundo entendia. Na hora do recreio, quando {H} explicava pela décima vez a diferença entre o pterossauro (que NÃO é dinossauro, aliás) e o T-rex, alguns colegas reviravam os olhos: lá vem o papo de dinossauro de novo…', sfx:'heart'},
+  {t:'Mas {P}, o professor, enxergava outra coisa. Via um cientista. Um dia, anunciou para a turma: semana que vem, nossa escola vai receber a FEIRA DE CIÊNCIAS. E eu quero um responsável pela banca de paleontologia. Todos os olhos viraram para {H}.', sfx:'fanfare'},
+  {t:'{H} preparou tudo com o capricho de quem ama: maquete do vulcão, linha do tempo desenhada à mão, fósseis de gesso feitos com {P} depois da aula, e as fichas de cada dinossauro escritas com letra caprichada.', sfx:'steps'},
+  {t:'Na véspera, veio o friozinho na barriga: e se todo mundo falar ao mesmo tempo? E se fizerem perguntas fora da ordem? {P} ajudou a treinar: fizeram uma lista das perguntas prováveis e um cartaz com a ordem da apresentação. Com mapa, até território novo fica mais calmo.', sfx:'bell'},
+  {t:'No dia da feira, a banca de {H} tinha FILA. Crianças, pais, até a diretora! E {H}, no seu ritmo, com o cartaz do lado, respondeu pergunta atrás de pergunta — inclusive uma dificílima sobre o espinossauro, que nadava, e {H} explicou com detalhes que nem o professor sabia.', sfx:'pop'},
+  {t:'Uma menina pequena perguntou baixinho: qual é o seu favorito? {H} pensou com toda a seriedade do mundo: o anquilossauro. Ele tem armadura, mas não briga à toa. A menina sorriu: parece você, forte e calmo. {H} guardou essa frase no coração para sempre.', sfx:'heart'},
+  {t:'No fim, a banca de paleontologia ganhou a estrelinha dourada de melhor da feira. {P} entregou o prêmio dizendo bem alto: isto é o que acontece quando a gente conhece um assunto de VERDADE. Todo expert começa com uma grande paixão.', sfx:'fanfare'},
+  {t:'No recreio seguinte, aconteceu o mais bonito: três colegas chegaram perto de {H} com uma caixa de dinossauros de brinquedo: você organiza com a gente? Do jeito certo, por período? E {H} organizou. Explicando tudo. E dessa vez, ninguém revirou os olhos — todo mundo queria ouvir.', sfx:'laugh'},
+  {t:'Porque o mundo é assim: uns sabem um pouquinho de muitas coisas, e outros, como {H}, sabem MUITO de algumas. E é dessa turma — a dos que mergulham fundo — que saem os cientistas, os artistas e os experts que mudam o mundo.', sfx:'magic'}
+ ]
+},
+{
+ id:'amigosdoseujeito', title:'Amigos do Seu Jeito', emoji:'🤝💙', cat:'tea', free:false, orig:true, mins:5, desc:'Tem amizade que fala baixinho',
+ hero:{role:'quem fez um amigo novo', def:'Gael'}, parent:{role:'o papai tradutor de coração', def:'o papai'},
+ paras:[
+  {t:'{H} gostava de brincar, sim. Só que do seu jeito: lado a lado, sem muita conversa, cada um com seus carrinhos, em fila, na mesma direção. Palavras, às vezes, saíam difíceis — mas isso não queria dizer que {H} não tinha nada a dizer.', sfx:'heart'},
+  {t:'No prédio de {H}, chegou um morador novo: Otto, do apartamento 42, com um caminhão vermelho debaixo do braço. No parquinho, Otto veio falando mil coisas por minuto: oi qual seu nome quer brincar do que você gosta de quê?!'},
+  {t:'Era palavra demais, rápido demais. {H} olhou para o chão e continuou alinhando os carrinhos. Otto ficou sem entender e foi embora meio murcho. Do banco, {P} viu tudo — e teve uma ideia gentil.', sfx:'wind'},
+  {t:'No dia seguinte, {P} conversou com Otto e a mãe dele: o {H} adora brincar, sabia? O convite dele é diferente: é sentar do lado e brincar junto, sem pressa. Que tal tentar assim, devagarinho?', sfx:'bell'},
+  {t:'Otto era curioso e topou. Sentou a um metro de distância, sem dizer nada, e começou a rodar o caminhão vermelho. Vruum… {H} olhou de canto. O caminhão era bonito. E estava indo… na MESMA direção da fila de carrinhos.', sfx:'steps'},
+  {t:'No terceiro dia, {H} fez uma coisa enorme: empurrou um carrinho azul devagarinho até parar pertinho de Otto. Era um presente? Um convite? Otto entendeu na hora: colocou o caminhão vermelho na fila de {H}, no fim, direitinho, sem bagunçar a ordem.', sfx:'pop'},
+  {t:'E ali nasceu um código secreto só deles: carrinho empurrado = quer brincar; duas batidinhas no chão = de novo!; polegar pra cima = tá ótimo; mão levantada = preciso de um tempo. Amizade também se inventa.', sfx:'magic'},
+  {t:'Otto descobriu coisas que ninguém mais sabia: que {H} percebia primeiro quando ia chover, pelo cheiro; que sabia o caminho de casa de olhos fechados, contando os passos; e que ria com o corpo todo quando o caminhão fazia loop na rampa.', sfx:'laugh'},
+  {t:'Um dia, no parquinho, um menino maior mexeu na fila de carrinhos e bagunçou tudo. Antes de {H} sentir a tempestade chegar, Otto já estava lá, arrumando a fila na ordem exata: triássico… quer dizer, azul, verde, vermelho! Amigo que aprende a ordem do coração da gente é amigo para sempre.', sfx:'heart'},
+  {t:'À noite, {H} falou, com as palavras saindo devagarinho, do jeito delas: Otto… é… meu amigo. {P} abraçou {H} bem forte, do jeito apertadinho que {H} gostava: é sim. E ele tem sorte, porque a sua amizade é das mais verdadeiras que existem.', sfx:'bell'},
+  {t:'Porque tem amizade que fala alto e tem amizade que fala baixinho, com carrinhos em fila e batidinhas no chão. E as duas — pode acreditar — valem exatamente a mesma coisa: tudo.', sfx:'magic'}
+ ]
+},
+{
+ id:'abracocobertor', title:'O Abraço do Cobertor', emoji:'🛏️⭐', cat:'tea', free:false, orig:true, mins:4, desc:'Uma história para dormir tranquilo',
+ hero:{role:'quem vai dormir gostoso', def:'Lis'}, parent:{role:'quem conta a história', def:'o papai'},
+ paras:[
+  {t:'A noite chegou devagar na casa de {H}. Primeiro o céu ficou cor de laranja, depois lilás, depois azul-escuro. As estrelas acenderam uma por uma, sem pressa, como quem sabe que a noite é longa.', sfx:'night'},
+  {t:'Na rotina de {H}, a noite tinha seus passos certinhos, sempre na mesma ordem — e que bom que era assim: banho morninho, pijama macio (o azul, sem etiqueta, porque etiqueta pinica), escovar os dentes contando até vinte, e depois… a melhor parte.', sfx:'bell'},
+  {t:'A melhor parte era o COBERTOR PESADINHO. {P} esticava o cobertor sobre {H} devagarinho, dos pés até o queixo, e o cobertor abraçava o corpo inteiro de uma vez — firme, quentinho, seguro, como um abraço que fica.', sfx:'heart'},
+  {t:'Aí {P} apagava a luz grande e acendia a luzinha das estrelas, que girava no teto: pontinhos verdes e azuis passeando devagar, sempre no mesmo caminho redondo. {H} seguia as estrelinhas com os olhos: uma volta… duas voltas…', sfx:'magic'},
+  {t:'Se o dia tinha sido barulhento demais, era agora que o corpo de {H} soltava o barulho para fora: balançando um pouquinho, mexendo os dedos no cantinho da fronha — o cantinho de cetim, o mais liso do mundo. Tudo bem. O corpo sabe o que faz.'},
+  {t:'{P} sentava na beiradinha da cama e contava, com voz baixa e devagar, sempre a mesma história começando do mesmo jeito — porque história repetida não é sem graça: é história de estimação.', sfx:'bell'},
+  {t:'Era uma vez uma estrela pequena que morava no céu enorme. Toda noite ela descia um pouquinho, só para espiar uma criança muito amada dormindo. E sabe o nome da criança? {H}. A estrela conhecia {H} pelo nome.', sfx:'magic'},
+  {t:'E a estrela dizia assim: pode dormir tranquilo, que eu fico de guarda. Se vier sonho bom, eu deixo entrar. Se vier sonho ruim, eu mando embora com um sopro de luz: fuuu…', sfx:'wind'},
+  {t:'Os olhos de {H} foram ficando pesados… pesados… As estrelinhas do teto giravam a terceira volta… a quarta… O cobertor abraçava. A voz de {P} era um barquinho balançando devagar.', sfx:'night'},
+  {t:'Boa noite, {H} — sussurrou {P}, dando um beijo de leve no cabelo. Você é amado do seu jeitinho exato, nem um tiquinho a menos. E lá fora, bem em cima da casa, uma estrela pequena brilhou mais forte — de guarda, a noite inteira, como prometido.', sfx:'bell'}
+ ]
+}
+,
+{
+ id:'capitaopijama', title:'Capitão Pijama', emoji:'🦸🌙', cat:'herois', free:true, orig:true, mins:5, desc:'O herói que salva a noite',
+ hero:{role:'o Capitão Pijama', def:'Téo'}, parent:{role:'o Comandante da Base Secreta', def:'Comandante Max'},
+ paras:[
+  {t:'De dia, {H} parecia uma criança comum: escola, lanche, dever de casa. Mas quando a noite chegava e o pijama de estrelas era vestido… nascia o CAPITÃO PIJAMA, o defensor oficial da hora de dormir!', sfx:'magic'},
+  {t:'A Base Secreta ficava disfarçada de quarto, e o chefe das missões era {P}, o Comandante, que ativava o alarme de dormir às vinte horas em ponto: Capitão, temos trabalho. A noite precisa de você.', sfx:'bell'},
+  {t:'Missão um: O RESGATE DOS BRINQUEDOS PERDIDOS. Nenhum soldadinho fica para trás! O Capitão Pijama varreu o campo de batalha (a sala), resgatou o urso de trás da almofada e devolveu cada um à base (o baú). Vítimas do dia: zero.', sfx:'steps'},
+  {t:'Missão dois: A TRAVESSIA DO CORREDOR ESCURO. Muitos temem essa jornada. Mas o Capitão tinha seu equipamento: a lanterna-turbo e o escudo invisível de coragem. O corredor foi atravessado em oito passos heroicos e meio pulo.', sfx:'night'},
+  {t:'Missão três: A BATALHA DA ESCOVAÇÃO. O inimigo: os Bichinhos do Açúcar, que queriam construir casinhas nos dentes do Capitão. A arma secreta: escova com pasta sabor morango. Dois minutos de combate — xuca-xuca-xuca — e os invasores foram derrotados até o último!', sfx:'splash'},
+  {t:'De volta à Base, o Comandante {P} conferiu o relatório: brinquedos salvos, corredor vencido, dentes brilhando. Impressionante, Capitão. Mas falta a missão mais difícil de todas… {H} engoliu seco. Sabia qual era.', sfx:'heart'},
+  {t:'A MISSÃO FICAR NA CAMA. O inimigo era invisível e astuto: a Vontade de Levantar, que atacava com seus truques — quero água, quero xixi, tem um barulho, só mais cinco minutinhos…', sfx:'creak'},
+  {t:'Mas herói que é herói se prepara: água já no criado-mudo, xixi feito na hora certa, e o Comandante de guarda na porta. A Vontade de Levantar atacou uma vez… duas… e encontrou o Capitão firme, de olhos fechados, respirando fundo como um dragão dormindo.', sfx:'wind'},
+  {t:'Foi então que o Comandante {P} usou o golpe final, o mais poderoso de todos: sentou na beirada da cama e contou em voz baixinha a história de como o Capitão Pijama salvou a noite mais uma vez. Nenhum herói resiste a ouvir a própria lenda.', sfx:'bell'},
+  {t:'Os olhos do Capitão pesaram… pesaram… e a Vontade de Levantar bateu em retirada, derrotada pelo sono mais gostoso do reino. Missão cumprida — sussurrou {P}, ajeitando a coberta. A noite está salva. Até amanhã, Capitão.', sfx:'night'},
+  {t:'E em algum lugar da cidade, todas as noites, quando uma criança veste o pijama e encara o corredor escuro de cabeça erguida… o espírito do Capitão Pijama sorri. Porque coragem de verdade também se treina dormindo bem.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'ligavizinhanca', title:'A Liga da Vizinhança', emoji:'🦹‍♀️🏘️', cat:'herois', free:false, orig:true, mins:5, desc:'Todo mundo tem um superpoder',
+ hero:{role:'quem fundou a Liga', def:'Maya'}, parent:{role:'o herói veterano aposentado', def:'Capitão Trovão'},
+ paras:[
+  {t:'Tudo começou quando {H} descobriu que o vizinho do 12, aquele senhor de suspensório que regava as plantas, era nada menos que o CAPITÃO TROVÃO — o herói mais famoso dos anos 80, aposentado e disfarçado!', sfx:'magic'},
+  {t:'{H} reconheceu {P} pela foto de um gibi antigo e perguntou na lata: é você, né? {P} suspirou e contou a verdade: aposentei a capa, pequena. Herói envelhece. Mas {H} discordou na hora: herói não envelhece. Herói vira PROFESSOR.', sfx:'bell'},
+  {t:'E assim nasceu a escolinha secreta na garagem do 12. Primeira lição de {P}: superpoder não é voar nem soltar raio. Superpoder é fazer MUITO BEM uma coisa que ajuda alguém. Todo mundo tem um. A missão é descobrir o seu.', sfx:'fanfare'},
+  {t:'{H} recrutou a turma da rua e começaram os testes. O Juca tinha o poder da MEMÓRIA DE ELEFANTE: lembrava onde qualquer coisa tinha sido vista pela última vez. A Bel tinha o SUPERALCANCE: era a mais alta e alcançava qualquer prateleira. O Nico, pequenininho, tinha o poder NINJA: passava por qualquer cantinho sem ninguém ver.', sfx:'laugh'},
+  {t:'E {H}? {H} tinha o poder mais raro segundo {P}: o RADAR DE QUEM PRECISA. {H} sempre percebia primeiro quando alguém estava triste, perdido ou precisando de ajuda — até quando a pessoa disfarçava.', sfx:'heart'},
+  {t:'A Liga da Vizinhança entrou em ação. Caso 1: o gato da Dona Cida, sumido há dois dias. Juca lembrou de tê-lo visto perto da obra; Nico entrou pela fresta do tapume; Bel alcançou o bichano no alto dos tijolos. Resgatado, ronronando!', sfx:'steps'},
+  {t:'Caso 2: o menino novo da rua, que ficava sozinho no portão. O radar de {H} apitou na hora. A Liga inteira apareceu com uma bola e um convite. No fim da tarde, o menino novo ria tanto que virou membro oficial — poder dele: EMBAIXADINHA INFINITA.', sfx:'pop'},
+  {t:'Caso 3, o mais sério: a enchente do bueiro entupido de folhas. A Liga não deu conta sozinha — e essa foi a lição mais importante de {P}: herói de verdade sabe a hora de chamar os adultos. Juntos, vizinhos e Liga desentupiram tudo antes da chuva grossa chegar.', sfx:'rain'},
+  {t:'No aniversário de {P}, a Liga aprontou a surpresa: reformaram a capa velha do Capitão Trovão, bordando um raio novinho. {P} chorou (herói chora, sim) e pendurou a capa na garagem, no lugar de honra: ela agora é da Liga. Eu só guardo.', sfx:'bell'},
+  {t:'E se você passar numa certa rua e vir crianças atentas, ajudando gente, achando gatos e convidando os sozinhos para brincar… cuidado: você pode estar em território da Liga da Vizinhança. E pode ser chamado para entrar no time a qualquer momento — porque o seu superpoder, pode acreditar, você já tem.', sfx:'fanfare'}
+ ]
+},
+{
+ id:'escudopapelao', title:'O Escudo de Papelão', emoji:'🛡️📦', cat:'herois', free:false, orig:true, mins:5, desc:'Herói se faz com o que tem',
+ hero:{role:'o herói do escudo', def:'Davi'}, parent:{role:'o bombeiro', def:'Bombeiro Gil'},
+ paras:[
+  {t:'O escudo de {H} era de papelão, pintado de dourado com tinta guache. O capacete era uma panela velha. A capa, uma toalha presa com pregador. E mesmo assim — ou por isso mesmo — era o equipamento de herói mais incrível da rua.', sfx:'pop'},
+  {t:'A vizinhança já conhecia: lá vai {H} patrulhando a calçada, protegendo formigas de pisões distraídos, acompanhando a tartaruga do 7 na travessia do quintal e montando guarda no portão quando o sorveteiro passava (missão: ser o primeiro da fila).', sfx:'laugh'},
+  {t:'Um dia, a sirene de verdade cortou a rua: uóóóóm! Um caminhão vermelho parou na esquina. Era o Corpo de Bombeiros, e dele desceu {P}, com capacete de verdade e botas enormes: o gatinho da Dona Lourdes subiu no poste e não desce nem por decreto.', sfx:'fanfare'},
+  {t:'{H} chegou junto com o escudo dourado: sou da patrulha da rua, senhor! Posso ajudar? Alguns adultos riram. {P} não riu: ajoelhou, apertou a mão de {H} com toda a seriedade e disse: patrulheiro, preciso mesmo de um parceiro. Missão de observação. Topa?', sfx:'bell'},
+  {t:'{P} explicou a tática: o gato estava assustado com a multidão. Barulho de gente é vento contrário para gato assustado. A missão de {H}: afastar a plateia com jeito e manter o silêncio na área. Missão aceita!', sfx:'heart'},
+  {t:'{H} organizou tudo como um profissional: pessoal, o show é lá na frente, aqui é área de resgate! E a rua obedeceu — porque criança com capacete de panela e voz firme tem uma autoridade que ninguém explica.', sfx:'steps'},
+  {t:'Só que aí o vento levou o boné do filhinho da Dona Lourdes para o meio da rua, e o menininho correu atrás! {H} viu no mesmo segundo: NEGATIVO, PATRULHEIRO! — e o escudou com o próprio corpo e o escudo de papelão, um passo antes da bicicleta do padeiro passar zunindo.', sfx:'wind'},
+  {t:'{P} desceu do poste com o gato no colo e viu a cena. O silêncio durou três segundos. Depois a rua inteira aplaudiu — o gato salvo lá em cima, e o salvamento de verdade, embaixo, feito por um escudo de papelão.', sfx:'fanfare'},
+  {t:'Na frente de todos, {P} tirou do bolso o distintivo dos bombeiros e prendeu na capa-toalha de {H}: coragem não se mede pelo material do escudo, se mede pelo tamanho do cuidado. Hoje o herói da rua foi você.', sfx:'bell'},
+  {t:'O escudo de papelão ganhou uma prateleira de honra no quartel, com uma plaquinha: EQUIPAMENTO OFICIAL DE HERÓI. E {H}? Continua patrulhando a calçada. Porque herói de verdade não espera emergência grande — treina todo dia nas pequenas.', sfx:'magic'}
+ ]
+},
+{
+ id:'heroinarelampago', title:'A Heroína Relâmpago', emoji:'⚡👟', cat:'herois', free:false, orig:true, mins:5, desc:'Mais rápida que o trovão',
+ hero:{role:'a Relâmpago', def:'Bia'}, parent:{role:'o treinador de heróis', def:'Mestre Apolo'},
+ paras:[
+  {t:'{H} nasceu com pressa. Andou antes do aniversário de um ano, e desde então nunca mais parou: era a primeira na escada, a primeira no lanche, a primeira em TUDO. Na rua, ganhou apelido: Relâmpago.', sfx:'pop'},
+  {t:'Quem viu o talento foi {P}, o velho treinador da pracinha, que já tinha preparado atletas famosos: menina, você tem os pés mais rápidos que eu já vi. Mas relâmpago sem direção só faz barulho. Quer aprender a ser VELOZ de verdade?', sfx:'bell'},
+  {t:'O treinamento de {P} era esquisito para quem corria tanto: semana um, ANDAR DEVAGAR. {H} quase explodiu: DEVAGAR?! EU?! Mas {P} explicou: quem não sabe ir devagar, não escolhe quando ir rápido. A velocidade obedece a quem tem freio.', sfx:'laugh'},
+  {t:'Semana dois: OLHAR ANTES DE CORRER. {P} espalhava obstáculos na praça e {H} tinha que mapear tudo com os olhos antes da largada. Semana três: CORRER POR ALGUÉM. Buscar o chapéu que o vento levou da Dona Filó, alcançar o ônibus para avisar que o Seu João estava vindo…', sfx:'steps'},
+  {t:'{H} foi entendendo: os pés eram rápidos, mas o superpoder de verdade era decidir PARA ONDE eles iam. Relâmpago que cai no lugar certo não assusta — ilumina.', sfx:'magic'},
+  {t:'Aí veio o dia da tempestade de verão. O céu fechou de repente, daquele jeito bravo, e a pracinha se esvaziou correndo. Foi quando a Dona Filó gritou do portão: O NETINHO! O netinho foi soltar pipa no campinho e o temporal vem vindo!', sfx:'rain'},
+  {t:'O campinho ficava longe — dez minutos para qualquer pessoa. {P} olhou para {H} e fez que sim: agora. É agora. Olhe o caminho, escolha a linha, e VOA.', sfx:'heart'},
+  {t:'{H} voou. Pulou a raiz da figueira (mapeada), cortou pela viela (olhada antes), desviou da lata de lixo rolando no vento (freio, curva, acelera!). O trovão roncou atrás — mas atrás, exatamente onde deveria ficar.', sfx:'wind'},
+  {t:'Encontrou o menininho no meio do campinho, teimando em enrolar a linha da pipa. {H} não gastou palavra: colocou ele nas costas, segurou firme e fez o caminho de volta na linha perfeita que os olhos já conheciam. O primeiro pingo grosso caiu quando os dois cruzaram o portão da Dona Filó.', sfx:'splash'},
+  {t:'A chuva desabou um segundo depois, furiosa por ter perdido a corrida. Na varanda, enrolados na toalha, o menininho olhou para {H} com os olhos brilhando: você é mais rápida que o trovão! E {P}, chegando ensopado e sorridente, corrigiu com orgulho: ela é mais SÁBIA que o trovão. Rápido, qualquer relâmpago é.', sfx:'fanfare'},
+  {t:'Hoje, na pracinha, tem uma marca de giz no chão: a pista oficial de treino da Heroína Relâmpago. E embaixo, escrito pela mão de {P}: velocidade é dom, direção é escolha. Treine as duas.', sfx:'bell'}
+ ]
+},
+{
+ id:'menorheroi', title:'O Menor Herói do Mundo', emoji:'🐜🦸', cat:'herois', free:false, orig:true, mins:5, desc:'Pequeno por fora, gigante por dentro',
+ hero:{role:'o menor herói do mundo', def:'Gui'}, parent:{role:'o cientista maluco (do bem)', def:'Doutor Píndaro'},
+ paras:[
+  {t:'{H} era a criança mais baixinha da turma. Última da fila do tamanho, primeira a ouvir gracinha: ô, pequeno, dá pra ver o quadro daí de baixo? {H} ria junto, mas por dentro, às vezes, doía um pouquinho.', sfx:'heart'},
+  {t:'O vizinho de {H} era {P}, um cientista de cabelo em pé que vivia explodindo coisinhas no quintal (do bem, claro). Um dia, vendo {H} cabisbaixo, {P} chamou: pequeno cidadão! Preciso de um ajudante de laboratório. Mas só serve quem for EXATAMENTE do seu tamanho.', sfx:'pop'},
+  {t:'Do meu tamanho? — desconfiou {H}. {P} abriu a porta do laboratório: minha maior invenção caiu atrás da estante de vidrinhos. O vão tem trinta centímetros. Eu não passo. Minha barriga discorda de vãos. VOCÊ passa.', sfx:'laugh'},
+  {t:'{H} deslizou pelo vão como uma lontra e resgatou a invenção: o MINIMIZADOR 3000, um capacete que — segundo {P} — encolhia o medo das pessoas. Não funcionava, claro. Mas dali nasceu uma parceria científica oficial, com direito a jaleco tamanho P.', sfx:'magic'},
+  {t:'E {H} foi descobrindo as vantagens secretas de ser pequeno: alcançava parafusos caídos embaixo das máquinas, ouvia os passarinhos antes de todo mundo (mais perto do chão, mais perto dos sons pequenos, dizia {P}), e cabia nos melhores esconderijos do universo.', sfx:'bird'},
+  {t:'Até que veio o dia do vazamento. Um cano estourou na escola num sábado de reforma, a água subindo no depósito onde ficavam os livros da biblioteca inteira — e a chave do registro tinha caído justamente no cantinho atrás do boiler, onde adulto nenhum alcançava.', sfx:'splash'},
+  {t:'O zelador tentou. O diretor tentou. O braço comprido do professor de educação física tentou. Nada. Foi quando {P}, que passava por ali com {H}, anunciou todo orgulhoso: senhores, aqui está a única pessoa no mundo que consegue fazer esse trabalho.', sfx:'fanfare'},
+  {t:'{H} vestiu a capa de chuva, respirou fundo e entrou no vão — primeiro o braço, depois o ombro, depois inteirinho. A água fazia barulho, o espaço era apertado, escuro… mas {H} lembrou do treino de laboratório: pequeno não trava. Pequeno MANOBRA.', sfx:'heart'},
+  {t:'Os dedos tocaram a chave. Um giro, dois giros no registro… e o silêncio mais lindo do mundo: a água PAROU. Do lado de fora, explodiu o aplauso — zelador, diretor e {P} gritando: É PEQUENO MAS É GIGANTE!', sfx:'bell'},
+  {t:'Na segunda-feira, a escola inteira ficou sabendo quem salvou os livros. E quando alguém da fila do tamanho brincou de novo — ô, pequeno! — a turma toda respondeu junto, antes de {H} abrir a boca: é O MENOR HERÓI DO MUNDO, respeita!', sfx:'laugh'},
+  {t:'No laboratório, {P} pendurou uma placa nova, na altura exata dos olhos de {H}: NESTE LABORATÓRIO TRABALHA UM GIGANTE. Porque tamanho, todo cientista sabe, é só uma medida — e nenhuma régua do mundo alcança o tamanho da coragem.', sfx:'fanfare'}
+ ]
+}
+/*__STORIES__*/
+];
+
+/* ---------- home ---------- */
+const GRADS=['linear-gradient(150deg,#f43f5e,#7c3aed)','linear-gradient(150deg,#f59e0b,#dc2626)','linear-gradient(150deg,#10b981,#0ea5e9)','linear-gradient(150deg,#8b5cf6,#ec4899)','linear-gradient(150deg,#0ea5e9,#6366f1)','linear-gradient(150deg,#f97316,#db2777)','linear-gradient(150deg,#14b8a6,#7c3aed)','linear-gradient(150deg,#e11d48,#f59e0b)','linear-gradient(150deg,#6366f1,#10b981)','linear-gradient(150deg,#d946ef,#f43f5e)','linear-gradient(150deg,#0284c7,#14b8a6)','linear-gradient(150deg,#a855f7,#f59e0b)'];
+
+const CATS=[
+ {id:'classicos', name:'📖 Contos Clássicos', desc:'Os contos de sempre, do jeitinho que a gente ama'},
+ {id:'suspense',  name:'🕵️ Suspense & Mistério', desc:'Sustinhos do bem — todo mistério tem final divertido'},
+ {id:'aventura',  name:'🗺️ Aventura', desc:'Tesouros, selvas, mares e montanhas'},
+ {id:'tea',       name:'💙 Turminha TEA', desc:'Histórias inclusivas com heróis autistas — cada criança brilha do seu jeito'},
+ {id:'herois',    name:'🦸 Heróis', desc:'Capas, escudos e corações valentes'}
+];
+function unlocked(st){ return st.free || S.passBought || S.rewardIds[st.id]; }
+function renderHome(){
+  const wrap=document.getElementById('cats'); wrap.innerHTML='';
+  let gi=0;
+  CATS.forEach((c,ci)=>{
+    const sts=STORIES.filter(s=>(s.cat||'classicos')===c.id);
+    if(!sts.length) return;
+    const h=document.createElement('h2'); h.className='sectiontitle';
+    h.innerHTML=`${c.name} <small>· ${sts.length} histórias</small>`; wrap.appendChild(h);
+    const d=document.createElement('div'); d.className='catdesc'; d.textContent=c.desc; wrap.appendChild(d);
+    const g=document.createElement('div'); g.className='grid';
+    [...sts].sort((a,b)=>(b.free?1:0)-(a.free?1:0)).forEach(st=>{
+      const b=document.createElement('button'); b.className='card'; b.style.background=GRADS[gi++%GRADS.length];
+      const badge= st.free?'<span class="badge free">GRÁTIS</span>' : (unlocked(st)?'<span class="badge free">✓ SEU</span>':'<span class="badge lock">🔒 PREMIUM</span>');
+      const orig= st.orig?'<span class="badge orig" style="top:38px">ORIGINAL</span>':'';
+      b.innerHTML=`${badge}${orig}<span class="emoji">${st.emoji}</span><h3>${st.title}</h3><span class="meta">⏱️ ${st.mins} min · ${st.desc}</span>`;
+      b.onclick=()=>tapStory(st.id);
+      g.appendChild(b);
+    });
+    wrap.appendChild(g);
+    if(ci===1||ci===3){
+      const ad=document.createElement('div'); ad.className='ad'; ad.setAttribute('data-ad','');
+      ad.innerHTML='<b>📢 Espaço de anúncio (entre categorias)</b><br><span class="adnote">Bloco nativo/retângulo 300×250 do AdMob/AdSense</span>';
+      wrap.appendChild(ad);
+    }
+  });
+  document.querySelectorAll('[data-ad]').forEach(a=>a.classList.toggle('hidden',S.adsRemoved));
+  document.getElementById('noadsBanner').classList.toggle('hidden',S.adsRemoved);
+}
+
+/* ---------- abrir história ---------- */
+let currentStory=null, pendingId=null;
+function tapStory(id){
+  const st=STORIES.find(s=>s.id===id);
+  if(!unlocked(st)){ pendingId=id;
+    document.getElementById('lockedName').textContent=`"${st.title}" faz parte da Coleção Premium.`;
+    show('ovLocked'); return; }
+  openPersonalize(id,false);
+}
+function openPersonalize(id,fromReader){
+  pendingId=id; const st=STORIES.find(s=>s.id===id);
+  document.getElementById('inChild').value=S.child;
+  document.getElementById('inParent').value=S.parent;
+  document.getElementById('hintChild').textContent=`Vai virar ${st.hero.role} (no lugar de "${st.hero.def}")`;
+  document.getElementById('hintParent').textContent=`Vai virar ${st.parent.role} (no lugar de "${st.parent.def}")`;
+  show('ovPersonalize');
+}
+function startStory(){
+  const st=STORIES.find(s=>s.id===pendingId);
+  S.child=document.getElementById('inChild').value.trim();
+  S.parent=document.getElementById('inParent').value.trim();
+  save(); hide('ovPersonalize');
+  const useC=document.getElementById('ckChild').checked && S.child;
+  const useP=document.getElementById('ckParent').checked && S.parent;
+  S.opens++;
+  const go=()=>renderReader(st,useC,useP);
+  if(!S.adsRemoved && S.opens>1 && S.opens%2===0){ showInter(go); } else go();
+}
+
+/* ---------- leitor ---------- */
+function names(st,txt,useC,useP){
+  return txt.replaceAll('{H}', useC?S.child:st.hero.def)
+            .replaceAll('{P}', useP?S.parent:st.parent.def);
+}
+function renderReader(st,useC,useP){
+  stopRead(); stopScroll();
+  currentStory=st; currentStory._useC=useC; currentStory._useP=useP;
+  document.getElementById('readerTitle').textContent=st.title;
+  const box=document.getElementById('storybox');
+  let html=`<div class="cover">${st.emoji}</div><div class="byline">${st.desc} · ⏱️ ${st.mins} min</div>`;
+  st.paras.forEach((p,i)=>{
+    const t=names(st,p.t,useC,useP);
+    const s=p.sfx?`<button class="sfxbtn" onclick="event.stopPropagation();sfx('${p.sfx}')">${SFX_ICON[p.sfx]||'🔊'}</button>`:'';
+    html+=`<p data-i="${i}" data-sfx="${p.sfx||''}" onclick="jumpTo(${i})">${t}${s}</p>`;
+  });
+  html+=`<div class="fim"><div class="star">🌟</div><h3>Fim!</h3><p>Boa noite, bons sonhos… e até a próxima historinha! 💤</p>
+  <button class="mbtn gold" onclick="closeReader()" style="max-width:260px;margin:14px auto 0">📚 Escolher outra história</button></div>`;
+  box.innerHTML=html;
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('reader').classList.remove('hidden');
+  document.getElementById('controls').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+function closeReader(){
+  stopRead(); stopScroll();
+  document.getElementById('reader').classList.add('hidden');
+  document.getElementById('controls').classList.add('hidden');
+  document.getElementById('home').classList.remove('hidden');
+  renderHome(); window.scrollTo(0,0);
+}
+function fontSize(d){ S.font=Math.min(1.9,Math.max(.95,S.font+d*.12));
+  document.documentElement.style.setProperty('--fontStory',S.font+'rem'); }
+
+/* ---------- leitura por IA (TTS) ---------- */
+let reading=false, rIdx=0, voices=[];
+const FEM=['maria','francisca','luciana','fernanda','vitoria','vitória','camila','leticia','letícia','helena','isabela','manuela','sofia','yara','luna','ana','raquel','female','feminin','mulher','joana','catarina','zira','luciana'];
+const MAS=['daniel','ricardo','felipe','antonio','antônio','thiago','tiago','joão','joao','miguel','rafael','fabio','fábio','male','masculin','homem','paulo','pedro','reed','diego'];
+function loadVoices(){
+  voices=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith('pt'));
+  if(!voices.length) voices=speechSynthesis.getVoices();
+  const sel=document.getElementById('voiceSel');
+  sel.innerHTML='<option value="">🔈 Voz…</option>'+voices.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===S.voiceURI?'selected':''}>${v.name.slice(0,22)}</option>`).join('');
+}
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+function guess(v,list){ const n=(v.name+' '+v.voiceURI).toLowerCase(); return list.some(x=>n.includes(x)); }
+function quickVoice(g){
+  const list=g==='f'?FEM:MAS, other=g==='f'?MAS:FEM;
+  let v=voices.find(x=>guess(x,list)) || voices.find(x=>!guess(x,other)) || voices[0];
+  if(v){ S.voiceURI=v.voiceURI; save(); loadVoices(); toast(g==='f'?'👩 Voz feminina escolhida':'👨 Voz masculina escolhida');
+    if(reading){ stopRead(); toggleRead(); } }
+  else toast('Nenhuma voz encontrada neste aparelho 😕');
+}
+function pickVoice(uri){ S.voiceURI=uri; save(); }
+function paraEls(){ return [...document.querySelectorAll('#storybox p[data-i]')]; }
+function jumpTo(i){ if(reading){ speechSynthesis.cancel(); rIdx=i; speakNext(); } }
+function toggleRead(){
+  if(!('speechSynthesis' in window)){ toast('Este navegador não tem leitura por voz 😕'); return; }
+  if(reading){ stopRead(); return; }
+  reading=true; rIdx=0; stopScroll();
+  document.getElementById('btnPlay').innerHTML='⏸️ Pausar';
+  document.getElementById('btnPlay').classList.add('on');
+  speakNext();
+}
+function speakNext(){
+  const els=paraEls();
+  els.forEach(e=>e.classList.remove('active'));
+  if(!reading||rIdx>=els.length){ stopRead(); return; }
+  const el=els[rIdx]; el.classList.add('active');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  if(el.dataset.sfx) sfx(el.dataset.sfx);
+  const u=new SpeechSynthesisUtterance(el.textContent);
+  const v=voices.find(x=>x.voiceURI===S.voiceURI); if(v)u.voice=v;
+  u.lang=(v&&v.lang)||'pt-BR'; u.rate=.55+S.scrollSpeed*.09; u.pitch=1.05;
+  u.onend=()=>{ if(reading){ rIdx++; setTimeout(speakNext,350); } };
+  u.onerror=()=>{ if(reading){ rIdx++; speakNext(); } };
+  speechSynthesis.speak(u);
+}
+function stopRead(){
+  reading=false; try{speechSynthesis.cancel()}catch(e){}
+  paraEls().forEach(e=>e.classList.remove('active'));
+  const b=document.getElementById('btnPlay');
+  b.innerHTML='▶️ Ler com IA'; b.classList.remove('on');
+}
+
+/* ---------- autoscroll ---------- */
+let scrolling=false, rafId=null, lastT=null, accPx=0;
+function toggleScroll(){
+  if(scrolling){ stopScroll(); return; }
+  stopRead(); scrolling=true; lastT=null; accPx=0;
+  document.getElementById('btnScroll').classList.add('on');
+  /* velocidade em pixels POR SEGUNDO (independe da tela ser 60Hz ou 120Hz):
+     nível 1 ≈ 10px/s (bem devagar) … nível 10 ≈ 64px/s */
+  const step=(t)=>{ if(!scrolling)return;
+    if(lastT!==null){
+      accPx+=(t-lastT)/1000*(4+S.scrollSpeed*6);
+      if(accPx>=1){ const px=Math.floor(accPx); accPx-=px; window.scrollBy(0,px); }
+    }
+    lastT=t;
+    if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4) stopScroll();
+    else rafId=requestAnimationFrame(step); };
+  rafId=requestAnimationFrame(step);
+}
+function stopScroll(){ scrolling=false; if(rafId)cancelAnimationFrame(rafId);
+  document.getElementById('btnScroll').classList.remove('on'); }
+function setSpeed(v){ S.scrollSpeed=+v; }
+
+/* ---------- efeitos sonoros (WebAudio, sem arquivos) ---------- */
+const SFX_ICON={magic:'✨',wolf:'🐺',knock:'🚪',steps:'👣',rain:'🌧️',wind:'🌬️',splash:'💦',creak:'🪵',bell:'🔔',pop:'🫧',fanfare:'🎺',heart:'💓',night:'🌙',fire:'🔥',roar:'🦁',bird:'🐦',laugh:'😄',snore:'😴',whoosh:'💨'};
+let AC=null;
+function ac(){ if(!AC){ const C=window.AudioContext||window.webkitAudioContext; if(!C)return null; AC=new C(); }
+  if(AC.state==='suspended')AC.resume(); return AC; }
+function tone(f,d,type,vol,when,glide){
+  const c=ac(); if(!c)return; const o=c.createOscillator(), g=c.createGain(), t=c.currentTime+(when||0);
+  o.type=type||'sine'; o.frequency.setValueAtTime(f,t);
+  if(glide)o.frequency.linearRampToValueAtTime(glide,t+d);
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol||.2,t+.02);
+  g.gain.exponentialRampToValueAtTime(.001,t+d);
+  o.connect(g).connect(c.destination); o.start(t); o.stop(t+d+.05);
+}
+function noiseB(d,vol,freq,type,when){
+  const c=ac(); if(!c)return; const t=c.currentTime+(when||0);
+  const buf=c.createBuffer(1,c.sampleRate*d,c.sampleRate), ch=buf.getChannelData(0);
+  for(let i=0;i<ch.length;i++)ch[i]=Math.random()*2-1;
+  const src=c.createBufferSource(); src.buffer=buf;
+  const f=c.createBiquadFilter(); f.type=type||'lowpass'; f.frequency.value=freq||800;
+  const g=c.createGain(); g.gain.setValueAtTime(vol||.2,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+  src.connect(f).connect(g).connect(c.destination); src.start(t); src.stop(t+d);
+}
+const SFX={
+  magic(){[523,659,784,1047,1319].forEach((f,i)=>tone(f,.5,'sine',.14,i*.09));},
+  bell(){tone(880,1.4,'sine',.22);tone(1760,.9,'sine',.07);},
+  wolf(){tone(280,1.4,'sine',.2,0,620);tone(620,.9,'sine',.16,1.0,300);},
+  knock(){[0,.28,.56].forEach(w=>noiseB(.12,.5,150,'lowpass',w));},
+  steps(){[0,.3,.6,.9].forEach(w=>noiseB(.09,.25,220,'lowpass',w));},
+  rain(){noiseB(2.6,.16,1400,'lowpass');noiseB(2.6,.06,4000,'highpass',.1);},
+  wind(){noiseB(2.8,.18,420,'bandpass');noiseB(2.2,.1,700,'bandpass',.9);},
+  splash(){noiseB(.5,.4,3000,'highpass');noiseB(.7,.2,600,'lowpass',.12);},
+  creak(){tone(120,1.1,'sawtooth',.07,0,70);},
+  pop(){tone(420,.09,'square',.2);tone(640,.07,'square',.12,.09);},
+  fanfare(){[523,523,659,784].forEach((f,i)=>tone(f,.32,'triangle',.18,i*.19));tone(1047,.7,'triangle',.2,.78);},
+  heart(){[0,.32,1.0,1.32].forEach((w,i)=>tone(70,.16,'sine',i%2?.18:.28,w));},
+  night(){[0,.5,1.0,1.5,2.0].forEach(w=>{tone(4200,.06,'sine',.06,w);tone(4200,.06,'sine',.06,w+.12);});},
+  fire(){for(let i=0;i<14;i++)noiseB(.05,.12,2500,'highpass',i*.16+Math.sin(i)*.04);},
+  roar(){tone(110,1.2,'sawtooth',.22,0,55);noiseB(1.1,.15,300,'lowpass');},
+  bird(){[0,.35,.7].forEach(w=>{tone(2400,.09,'sine',.12,w,3200);tone(3000,.08,'sine',.1,w+.12,2200);});},
+  laugh(){[600,700,600,700,600].forEach((f,i)=>tone(f,.12,'triangle',.14,i*.15));},
+  snore(){tone(90,.8,'sawtooth',.1,0,60);tone(90,.8,'sawtooth',.1,1.1,60);},
+  whoosh(){noiseB(.7,.3,900,'bandpass');tone(500,.5,'sine',.1,0,120);}
+};
+function sfx(name){ if(!S.sfxOn)return; const f=SFX[name]; if(f)try{f()}catch(e){} }
+/* Navegadores bloqueiam áudio até o primeiro toque do usuário na tela.
+   Este destravamento cria/acorda o AudioContext no primeiro toque: */
+['pointerdown','touchend','click','keydown'].forEach(ev=>
+  document.addEventListener(ev,function unlock(){ ac(); },{once:true,passive:true}));
+function toggleSfx(){ S.sfxOn=!S.sfxOn;
+  const b=document.getElementById('btnSfx');
+  b.classList.toggle('on',S.sfxOn); b.innerHTML=S.sfxOn?'🔊 Efeitos':'🔇 Efeitos';
+  if(S.sfxOn)sfx('magic'); }
+
+/* ---------- anúncios & compras ---------- */
+/* PAGAMENTO_AQUI: no app publicado, troque buy() pela chamada real de
+   Google Play Billing (produto: remover_anuncios R$19,90 / passe_magico R$14,90)
+   ou gateway Pix (ex.: Mercado Pago). */
+let interCb=null, interTimer=null;
+function showInter(cb){
+  interCb=cb; let n=5; show('ovInter');
+  document.getElementById('interClose').classList.add('hidden');
+  const c=document.getElementById('interCount');
+  c.textContent='Aguarde '+n+'s…';
+  interTimer=setInterval(()=>{ n--;
+    if(n<=0){ clearInterval(interTimer); c.textContent='Você já pode fechar 👇';
+      document.getElementById('interClose').classList.remove('hidden'); }
+    else c.textContent='Aguarde '+n+'s…'; },1000);
+}
+function closeInter(){ hide('ovInter'); const cb=interCb; interCb=null; if(cb)cb(); }
+function rewarded(){
+  hide('ovLocked');
+  showInter(()=>{ S.rewardIds[pendingId]=true; toast('🎁 História liberada por hoje!'); openPersonalize(pendingId,false); });
+}
+function openPremium(which){ hide('ovLocked'); show('ovPremium'); }
+function buy(which){ /* PAGAMENTO_AQUI */
+  if(which==='ads'){ S.adsRemoved=true; toast('✅ Anúncios removidos. Obrigado! 💜'); }
+  else { S.passBought=true; toast('👑 Passe Mágico ativado!'); }
+  save(); hide('ovPremium'); renderHome();
+}
+function openSettings(){
+  document.getElementById('buyStatus').innerHTML=
+    (S.adsRemoved?'✅ Sem anúncios (comprado)':'📢 Anúncios ativos')+'<br>'+
+    (S.passBought?'👑 Passe Mágico ativo':'🔒 Coleção Premium bloqueada');
+  show('ovSettings');
+}
+function resetAll(){ S.child='';S.parent='';S.adsRemoved=false;S.passBought=false;S.rewardIds={};
+  save(); hide('ovSettings'); renderHome(); toast('Dados apagados.'); }
+
+/* ---------- util ---------- */
+function show(id){ document.getElementById(id).classList.remove('hidden'); }
+function hide(id){ document.getElementById(id).classList.add('hidden'); }
+let toastT=null;
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t); clearTimeout(toastT); toastT=setTimeout(()=>t.remove(),2600);
+}
+renderHome();
+</script>
+</body>
+</html>
