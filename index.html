@@ -53,6 +53,8 @@ header.top{display:flex;align-items:center;justify-content:space-between;padding
 .card{position:relative;border-radius:var(--rd);padding:16px 14px 14px;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;box-shadow:0 10px 24px #0007;overflow:hidden;color:#fff;text-align:left;transition:transform .12s}
 .card:active{transform:scale(.96)}
 .card .emoji{font-size:2.6rem;line-height:1;filter:drop-shadow(0 6px 8px #0007)}
+.card.has-img{min-height:200px}
+#storybox .coverimg{height:200px;border-radius:20px;background-position:center 25%;background-size:cover;background-repeat:no-repeat;margin:14px 0 10px;box-shadow:0 14px 34px #0008;border:1px solid #ffffff22}
 .card h3{font-size:1.02rem;font-weight:600;line-height:1.15;text-shadow:0 2px 6px #0008}
 .card .meta{font-size:.72rem;opacity:.92;font-weight:700}
 .badge{position:absolute;top:10px;right:10px;font-size:.66rem;font-weight:800;padding:4px 9px;border-radius:999px;background:#00000055;backdrop-filter:blur(4px)}
@@ -841,6 +843,35 @@ const STORIES=[
 /*__STORIES__*/
 ];
 
+/* ---------- capas (pinturas de domínio público + artes originais) ---------- */
+const COVER_ART={
+ chapeuzinho:['covers/chapeuzinho.jpg','Pintura: Jessie Willcox Smith (1911)'],
+ porquinhos:['covers/porquinhos.jpg','Pintura: L. Leslie Brooke (1904)'],
+ cinderela:['covers/cinderela.jpg','Pintura: Alexander Zick (séc. XIX)'],
+ brancadeneve:['covers/brancadeneve.jpg','Pintura: Franz Jüttner (1905)'],
+ belafera:['covers/belafera.jpg','Pintura: Walter Crane (1874)'],
+ pinoquio:['covers/pinoquio.jpg','Pintura: Maria L. Kirk (1916)'],
+ sereia:['covers/sereia.jpg','Pintura: Edmund Dulac (1911)'],
+ rapunzel:['covers/rapunzel.jpg','Pintura: Anne Anderson (déc. 1920)'],
+ aladim:['covers/aladim.jpg','Pintura: Walter Crane (1875)'],
+ joaoemaria:['covers/joaoemaria.jpg','Pintura: Arthur Rackham (1909)'],
+ rainhadaneve:['covers/rainhadaneve.jpg','Pintura: Edmund Dulac (1911)'],
+ bau:['covers/bau.svg',''],
+ meiasumida:['covers/meiasumida.svg',''], casafimdarua:['covers/casafimdarua.svg',''],
+ barulhosotao:['covers/barulhosotao.svg',''], fantasmabiblioteca:['covers/fantasmabiblioteca.svg',''],
+ sombrajardim:['covers/sombrajardim.svg',''],
+ tesouroquintal:['covers/tesouroquintal.svg',''], montanha:['covers/montanha.svg',''],
+ riojacares:['covers/riojacares.svg',''], ilhavulcao:['covers/ilhavulcao.svg',''],
+ fundodomar:['covers/fundodomar.svg',''],
+ festabarulhenta:['covers/festabarulhenta.svg',''], rotinamudou:['covers/rotinamudou.svg',''],
+ colecaodinos:['covers/colecaodinos.svg',''], amigosdoseujeito:['covers/amigosdoseujeito.svg',''],
+ abracocobertor:['covers/abracocobertor.svg',''],
+ capitaopijama:['covers/capitaopijama.svg',''], ligavizinhanca:['covers/ligavizinhanca.svg',''],
+ escudopapelao:['covers/escudopapelao.svg',''], heroinarelampago:['covers/heroinarelampago.svg',''],
+ menorheroi:['covers/menorheroi.svg','']
+};
+STORIES.forEach(s=>{ const c=COVER_ART[s.id]; if(c){ s.img=c[0]; s.credit=c[1]; } });
+
 /* ---------- home ---------- */
 const GRADS=['linear-gradient(150deg,#f43f5e,#7c3aed)','linear-gradient(150deg,#f59e0b,#dc2626)','linear-gradient(150deg,#10b981,#0ea5e9)','linear-gradient(150deg,#8b5cf6,#ec4899)','linear-gradient(150deg,#0ea5e9,#6366f1)','linear-gradient(150deg,#f97316,#db2777)','linear-gradient(150deg,#14b8a6,#7c3aed)','linear-gradient(150deg,#e11d48,#f59e0b)','linear-gradient(150deg,#6366f1,#10b981)','linear-gradient(150deg,#d946ef,#f43f5e)','linear-gradient(150deg,#0284c7,#14b8a6)','linear-gradient(150deg,#a855f7,#f59e0b)'];
 
@@ -863,10 +894,15 @@ function renderHome(){
     const d=document.createElement('div'); d.className='catdesc'; d.textContent=c.desc; wrap.appendChild(d);
     const g=document.createElement('div'); g.className='grid';
     [...sts].sort((a,b)=>(b.free?1:0)-(a.free?1:0)).forEach(st=>{
-      const b=document.createElement('button'); b.className='card'; b.style.background=GRADS[gi++%GRADS.length];
+      const b=document.createElement('button'); b.className='card';
+      if(st.img){ b.classList.add('has-img');
+        b.style.background=`linear-gradient(180deg, rgba(15,10,40,.02) 30%, rgba(15,10,40,.9)), url('${st.img}') center 22%/cover no-repeat`;
+      } else b.style.background=GRADS[gi%GRADS.length];
+      gi++;
       const badge= st.free?'<span class="badge free">GRÁTIS</span>' : (unlocked(st)?'<span class="badge free">✓ SEU</span>':'<span class="badge lock">🔒 PREMIUM</span>');
       const orig= st.orig?'<span class="badge orig" style="top:38px">ORIGINAL</span>':'';
-      b.innerHTML=`${badge}${orig}<span class="emoji">${st.emoji}</span><h3>${st.title}</h3><span class="meta">⏱️ ${st.mins} min · ${st.desc}</span>`;
+      const emo= st.img?'':`<span class="emoji">${st.emoji}</span>`;
+      b.innerHTML=`${badge}${orig}${emo}<h3>${st.title}</h3><span class="meta">⏱️ ${st.mins} min · ${st.desc}</span>`;
       b.onclick=()=>tapStory(st.id);
       g.appendChild(b);
     });
@@ -920,7 +956,10 @@ function renderReader(st,useC,useP){
   currentStory=st; currentStory._useC=useC; currentStory._useP=useP;
   document.getElementById('readerTitle').textContent=st.title;
   const box=document.getElementById('storybox');
-  let html=`<div class="cover">${st.emoji}</div><div class="byline">${st.desc} · ⏱️ ${st.mins} min</div>`;
+  let html= st.img
+    ? `<div class="coverimg" style="background-image:url('${st.img}')"></div>`
+    : `<div class="cover">${st.emoji}</div>`;
+  html+=`<div class="byline">${st.desc} · ⏱️ ${st.mins} min${st.credit?`<br><span style="opacity:.75;font-size:.72rem">${st.credit} · domínio público</span>`:''}</div>`;
   st.paras.forEach((p,i)=>{
     const t=names(st,p.t,useC,useP);
     const s=p.sfx?`<button class="sfxbtn" onclick="event.stopPropagation();sfx('${p.sfx}')">${SFX_ICON[p.sfx]||'🔊'}</button>`:'';
