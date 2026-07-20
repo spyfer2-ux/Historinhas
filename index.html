@@ -246,6 +246,7 @@ footer.credits{text-align:center;color:#9f93cf;font-size:.7rem;padding:24px 10px
     </div>
     <button class="mbtn ghost" onclick="openPremium('ads')">👑 Ver planos premium</button>
     <button class="mbtn ghost" onclick="resetAll()">🗑️ Apagar nomes e compras (teste)</button>
+    <p class="legal">🎙️ <b>Dica para melhorar a voz da leitura:</b> o app usa a voz instalada no seu celular. No Android, instale/atualize o app <b>"Reconhecimento e síntese de voz do Google"</b> na Play Store e depois vá em Configurações → Sistema → Saída de conversão de texto em voz → escolha o mecanismo do Google e baixe a voz <b>Português (Brasil)</b>. Depois teste as vozes no menu "Voz…" do leitor — algumas são bem mais naturais que outras.</p>
     <button class="mbtn gold" onclick="hide('ovSettings')">Fechar</button>
     <p class="legal">Historinhas v1.0 · As histórias desta coleção são adaptações originais de contos de domínio público. Personagens e textos das adaptações © Historinhas.</p>
   </div>
@@ -950,6 +951,12 @@ const MAS=['daniel','ricardo','felipe','antonio','antônio','thiago','tiago','jo
 function loadVoices(){
   voices=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith('pt'));
   if(!voices.length) voices=speechSynthesis.getVoices();
+  /* coloca as vozes de melhor qualidade primeiro (naturais/neurais > Google > pt-BR) */
+  const q=v=>{const n=(v.name+' '+v.voiceURI).toLowerCase();let s=0;
+    if(n.includes('natural')||n.includes('neural')||n.includes('enhanced')||n.includes('premium'))s+=4;
+    if(n.includes('google'))s+=2;
+    if((v.lang||'').toLowerCase().replace('_','-')==='pt-br')s+=1;return s;};
+  voices.sort((a,b)=>q(b)-q(a));
   const sel=document.getElementById('voiceSel');
   sel.innerHTML='<option value="">🔈 Voz…</option>'+voices.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===S.voiceURI?'selected':''}>${v.name.slice(0,22)}</option>`).join('');
 }
@@ -980,12 +987,21 @@ function speakNext(){
   const el=els[rIdx]; el.classList.add('active');
   el.scrollIntoView({behavior:'smooth',block:'center'});
   if(el.dataset.sfx) sfx(el.dataset.sfx);
-  const u=new SpeechSynthesisUtterance(el.textContent);
-  const v=voices.find(x=>x.voiceURI===S.voiceURI); if(v)u.voice=v;
-  u.lang=(v&&v.lang)||'pt-BR'; u.rate=.55+S.scrollSpeed*.09; u.pitch=1.05;
-  u.onend=()=>{ if(reading){ rIdx++; setTimeout(speakNext,350); } };
-  u.onerror=()=>{ if(reading){ rIdx++; speakNext(); } };
-  speechSynthesis.speak(u);
+  /* lê frase por frase, com pausinhas — fica bem menos robótico */
+  const sents=(el.textContent.match(/[^.!?…]+[.!?…]*/g)||[el.textContent]).map(s=>s.trim()).filter(Boolean);
+  const v=voices.find(x=>x.voiceURI===S.voiceURI);
+  let si=0;
+  const sayNext=()=>{
+    if(!reading) return;
+    if(si>=sents.length){ rIdx++; setTimeout(speakNext,550); return; }
+    const u=new SpeechSynthesisUtterance(sents[si++]);
+    if(v)u.voice=v; u.lang=(v&&v.lang)||'pt-BR';
+    u.rate=.5+S.scrollSpeed*.08; u.pitch=1.02;
+    u.onend=()=>{ if(reading) setTimeout(sayNext,230); };
+    u.onerror=()=>{ if(reading) sayNext(); };
+    speechSynthesis.speak(u);
+  };
+  sayNext();
 }
 function stopRead(){
   reading=false; try{speechSynthesis.cancel()}catch(e){}
